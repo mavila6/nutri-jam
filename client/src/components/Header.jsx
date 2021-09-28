@@ -28,7 +28,7 @@ const AppHeader = () => {
               {Auth.loggedIn() ? (
                 <>
                   <Nav.Link as={Link} to="/saved">
-                    See Your Foooods
+                    See Your Foooods!
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout!</Nav.Link>
                 </>
