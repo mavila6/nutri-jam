@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Header, Nav, Container, Modal, Tab } from "react-bootstrap";
+import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 import Signup from "./Signup";
 import Login from "./Login";
 
 import Auth from "../utils/auth";
 
-const AppHeader = () => {
+const AppNavbar = () => {
   // set modal to display state(initial state is false)
   const [showModal, setShowModal] = useState(false);
 
   // jsx
   return (
     <>
-      <Header bg="dark" variant="dark" expand="lg">
+      <Navbar bg="dark" variant="dark" expand="lg">
         <Container fluid>
-          <Header.Brand as={Link} to="/">
+          <Navbar.Brand as={Link} to="/">
             NutriJAM
-          </Header.Brand>
-          <Header.Toggle aria-controls="navbar" />
-          <Header.Collapse id="header">
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="navbar" />
+          <Navbar.Collapse id="Navbar">
             <Nav className="ml-auto">
               <Nav.Link as={Link} to="/">
                 What Kind of Food Would You Like??
@@ -38,9 +38,9 @@ const AppHeader = () => {
                 </Nav.Link>
               )}
             </Nav>
-          </Header.Collapse>
+          </Navbar.Collapse>
         </Container>
-      </Header>
+      </Navbar>
       {/* set up modal data */}
       <Modal
         size="lg"
@@ -50,7 +50,7 @@ const AppHeader = () => {
       >
         {/* make a tab container to do signup or login component */}
         <Tab.Container defaultActiveKey="login">
-          <Modal.Header closeButton>
+          <Modal.Navbar closeButton>
             <Modal.Title id="signup-modal">
               <Nav variant="pills">
                 <Nav.Item>
@@ -61,7 +61,7 @@ const AppHeader = () => {
                 </Nav.Item>
               </Nav>
             </Modal.Title>
-          </Modal.Header>
+          </Modal.Navbar>
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey="login">
@@ -78,4 +78,4 @@ const AppHeader = () => {
   );
 };
 
-export default AppHeader;
+export default AppNavbar;
