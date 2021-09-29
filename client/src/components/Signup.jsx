@@ -6,7 +6,7 @@ import Auth from "../utils/auth";
 
 const Signup = () => {
   // set initial form state
-  const [userFormData, setUserFormData] = useState({
+  const [userData, setUserData] = useState({
     username: "",
     email: "",
     password: "",
@@ -16,11 +16,11 @@ const Signup = () => {
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
-  const [addUser] = mutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserFormData({ ...userFormData, [name]: value });
+    setUserData({ ...userData, [name]: value });
   };
 
   const handleFormSubmit = async (e) => {
@@ -35,16 +35,16 @@ const Signup = () => {
 
     try {
       const { data } = await addUser({
-        variables: userFormData,
+        variables: userData,
       });
 
       Auth.login(data.addUser.token);
     } catch (err) {
-      console.log(error);
+      console.error(err);
       setShowAlert(true);
     }
 
-    setUserFormData({
+    setUserData({
       username: "",
       email: "",
       password: "",
@@ -59,7 +59,7 @@ const Signup = () => {
         <Alert
           dismissible
           onClose={() => setShowAlert(false)}
-          show={setShowAlert}
+          show={showAlert}
           variant="danger"
         >
           Something went wrong with your signup!
@@ -72,7 +72,7 @@ const Signup = () => {
             placeholder="Enter Your Username!"
             name="username"
             onChange={handleInputChange}
-            value={userFormData.username}
+            value={userData.username}
             required
           />
           <Form.Control.Feedback type="invalid">
@@ -87,7 +87,7 @@ const Signup = () => {
             placeholder="Enter Your Password!"
             name="password"
             onChange={handleInputChange}
-            value={userFormData.password}
+            value={userData.password}
             required
           />
           <Form.Control.Feedback type="invalid">
@@ -97,9 +97,9 @@ const Signup = () => {
         <Button
           disabled={
             !(
-              userFormData.username &&
-              userFormData.email &&
-              userFormData.password
+              userData.username &&
+              userData.email &&
+              userData.password
             )
           }
           type="submit"
@@ -111,3 +111,5 @@ const Signup = () => {
     </>
   );
 };
+
+export default Signup
