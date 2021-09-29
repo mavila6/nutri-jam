@@ -40,7 +40,7 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { addFood: food } },
+          { $addToSet: { saveFood: food } },
           { new: true }
         );
         return updatedUser;

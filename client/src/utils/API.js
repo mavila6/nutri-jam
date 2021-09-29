@@ -27,7 +27,7 @@ export const login = (userData) => {
   });
 };
 
-export const addFood = (foodData, token) => {
+export const saveFood = (foodData, token) => {
   return fetch("/api/users", {
     method: "PUT",
     headers: {

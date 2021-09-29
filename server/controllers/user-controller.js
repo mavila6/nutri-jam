@@ -48,7 +48,7 @@ module.exports = {
     res.json({ token, user });
   },
   //save a food
-  async addFood({ user, body }, res) {
+  async saveFood({ user, body }, res) {
     console.log(user);
     try {
       const updatedUser = await User.findOneAndUpdate(
