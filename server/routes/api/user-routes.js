@@ -2,7 +2,7 @@ const router = require("express").Router();
 const {
   createUser,
   getSingleUser,
-  addFood,
+  saveFood,
   removeFood,
   login,
 } = require("../../controllers/user-controller");
@@ -11,7 +11,7 @@ const {
 const { authMiddleware } = require("../../utils/auth");
 
 // put authMiddleware anywhere we need to send a token for verification of the user
-router.route("/").post(createUser).put(authMiddleware, addFood);
+router.route("/").post(createUser).put(authMiddleware, saveFood);
 
 router.route("/login").post(login);
 
