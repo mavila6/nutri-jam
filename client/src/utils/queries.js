@@ -9,10 +9,10 @@ export const GET_ME = gql`
       foodCount
       savedFood {
         foodId
-        title
         recipe
-        image
+        user_id
         description
+        image
       }
     }
   }
