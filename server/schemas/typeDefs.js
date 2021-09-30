@@ -19,7 +19,7 @@ const typeDefs = gql`
   type Query {
     me: User
   }
-  input SavedFoodInput {
+  input savedFoodInput {
     description: String
     foodId: String
     image: String

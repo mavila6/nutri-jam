@@ -27,13 +27,13 @@ export const login = (userData) => {
   });
 };
 
-export const saveFood = (foodData, token) => {
+export const saveFood = (savedFoodInput, token) => {
   return fetch("/api/users", {
     method: "PUT",
     headers: {
       "Content-Type": `Bearer ${token}`,
     },
-    body: JSON.stringify(foodData),
+    body: JSON.stringify(savedFoodInput),
   });
 };
 
@@ -49,5 +49,5 @@ export const removeFood = (foodId, token) => {
 // api search for recipes
 // https://www.boredapi.com/api/activity?participants=1
 export const searchFood = (query) => {
-    return fetch(`https://www.boredapi.com/api/activity?q=${query}`)
-}
+  return fetch(`https://www.boredapi.com/api/activity?q=${query}`);
+};
