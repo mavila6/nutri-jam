@@ -1,4 +1,5 @@
-const apiKey = "6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83";
+const apiKey =
+  "6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83";
 
 export const getMe = (token) => {
   return fetch("/api/users/me", {
@@ -48,7 +49,22 @@ export const removeFood = (foodId, token) => {
   });
 };
 
-
 export const searchFood = (query) => {
-  return fetch(`https://serpapi.com/search.json?q=${query}&hl=en&gl=us&api_key=${apiKey}`);
+  const SerpApi = require("google-search-results-nodejs");
+  const search = new SerpApi.GoogleSearch(apiKey);
+
+  const params = {
+    q: { query },
+    location: "United States",
+    hl: "en",
+    gl: "us",
+  };
+
+  const callback = function (data) {
+    return data["recipes_results"];
+  };
+
+  // Show result!
+  const searchResult = search.json(params, callback);
+  return searchResult;
 };
