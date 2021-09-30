@@ -1,3 +1,5 @@
+const apiKey = "6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83";
+
 export const getMe = (token) => {
   return fetch("/api/users/me", {
     headers: {
@@ -46,8 +48,7 @@ export const removeFood = (foodId, token) => {
   });
 };
 
-// api search for recipes
-// https://www.boredapi.com/api/activity?participants=1
+
 export const searchFood = (query) => {
-  return fetch(`https://www.boredapi.com/api/activity?q=${query}`);
+  return fetch(`https://serpapi.com/search.json?q=${query}&hl=en&gl=us&api_key=${apiKey}`);
 };
