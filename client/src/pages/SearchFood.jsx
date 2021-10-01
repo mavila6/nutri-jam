@@ -21,5 +21,37 @@ const SearchFood = () => {
   const [savedFoodIds, setSavedFoodIds] = useState(getSavedFoodIds());
   const [foodSave] = useMutation(SAVE_FOOD);
 
+  useEffect(() => {
+    return () => saveFoodIds(getSavedFoodIds);
+  }); 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!searchInput) {
+      return false;
+    }
+    try {
+      const response = await searchResult(searchInput);
+      if (!response.ok) {
+        throw new Error("Oops! You got an error.");
+      }
+      const { items } = await response.json();
+
+      const savedFoodInput = items.map((food) => ({
+        // foodId: lorem,
+        // recipe: lorem,
+        // userId:lorem,
+        // description: lorem,
+        // image: lorem  will place our response data here
+      }));
+
+      setSearchedFood(savedFoodInput);
+      setSearchInput("");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
 
 }
