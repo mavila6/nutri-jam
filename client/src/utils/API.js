@@ -1,5 +1,4 @@
-const apiKey =
-  "6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83";
+const apiKey = REACT_APP_API_KEY
 
 export const getMe = (token) => {
   return fetch("/api/users/me", {
