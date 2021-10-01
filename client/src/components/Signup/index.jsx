@@ -80,6 +80,21 @@ const Signup = () => {
         </Form.Group>
 
         <Form.Group>
+          <Form.Label htmlFor="email address">Email Address</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter Your Email Address!"
+            name="email"
+            onChange={handleInputChange}
+            value={userData.email}
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Your email address is required!
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group>
           <Form.Label htmlFor="password">Password</Form.Label>
           <Form.Control
             type="password"

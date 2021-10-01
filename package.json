@@ -19,6 +19,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.1",
     "concurrently": "^5.1.0"
   },
   "bugs": {
@@ -26,6 +28,7 @@
   },
   "homepage": "https://github.com/mavila6/nutri-jam#readme",
   "dependencies": {
-    "google-search-results-nodejs": "^2.0.1"
+    "google-search-results-nodejs": "^2.0.1",
+    "react-router-dom": "^5.3.0"
   }
 }
