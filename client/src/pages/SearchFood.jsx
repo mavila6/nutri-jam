@@ -53,5 +53,25 @@ const SearchFood = () => {
     }
   };
 
+  const handleSaveFood = async (foodId) => {
+    const foodToSave = searchedFood.find((food) => food.foodId === foodId);
 
-}
+    const token = Auth.loggedIn() ?  Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+    try {
+      await foodSave({
+        variables: {content: foodToSave},
+      });
+      setSavedFoodIds([...savedFoodIds, foodToSave.foodId]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  
+};
+
+export default SearchFood;
