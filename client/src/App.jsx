@@ -14,6 +14,8 @@ import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
+console.log(process.env.REACT_APP_API_KEY)
+
 const httpLink = createHttpLink({
   uri: "/graphql",
 });
