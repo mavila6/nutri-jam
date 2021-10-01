@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../utils/mutations";
-import Auth from "../utls/auth";
+import { ADD_USER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
-const Login = () => {
-  // set initial state
+const Signup = () => {
+  // set initial form state
   const [userData, setUserData] = useState({
+    username: "",
     email: "",
     password: "",
   });
-
+  //   set state for form validation
   const [validated] = useState(false);
+  // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [addUser] = useMutation(ADD_USER);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,9 +24,9 @@ const Login = () => {
   };
 
   const handleFormSubmit = async (e) => {
-    e.preventDefalt();
+    e.preventDefault();
 
-    // check if the form has everything
+    // check if form has everything
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.preventDefault();
@@ -32,13 +34,12 @@ const Login = () => {
     }
 
     try {
-      const { data } = await loginUser({
+      const { data } = await addUser({
         variables: userData,
       });
 
-      Auth.login(data.login.token);
+      Auth.login(data.addUser.token);
     } catch (err) {
-      console.error(err);
       setShowAlert(true);
     }
 
@@ -55,26 +56,26 @@ const Login = () => {
       <Form noValidate={validated} onSubmit={handleFormSubmit}>
         {/* show alert if server response is bad */}
         <Alert
-          dismissable
+          dismissible
           onClose={() => setShowAlert(false)}
           show={showAlert}
           variant="danger"
         >
-          Something went wrong with your login!
+          Something went wrong with your signup!
         </Alert>
 
         <Form.Group>
-          <Form.Label htmlFor="email">Email</Form.Label>
+          <Form.Label htmlFor="username">Username</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Your email"
-            name="email"
+            placeholder="Enter Your Username!"
+            name="username"
             onChange={handleInputChange}
-            value={userData.email}
+            value={userData.username}
             required
           />
           <Form.Control.Feedback type="invalid">
-            Your email is required!
+            Your username is required!
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -82,7 +83,7 @@ const Login = () => {
           <Form.Label htmlFor="password">Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Your password"
+            placeholder="Enter Your Password!"
             name="password"
             onChange={handleInputChange}
             value={userData.password}
@@ -92,17 +93,16 @@ const Login = () => {
             Your password is required!
           </Form.Control.Feedback>
         </Form.Group>
-
         <Button
-          disabled={!(userData.email && userData.password)}
+          disabled={!(userData.username && userData.email && userData.password)}
           type="submit"
           variant="success"
         >
-          Submit
+          Submit!
         </Button>
       </Form>
     </>
   );
 };
 
-export default Login;
+export default Signup;

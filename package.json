@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/mavila6/nutri-jam/issues"
   },
-  "homepage": "https://github.com/mavila6/nutri-jam#readme"
+  "homepage": "https://github.com/mavila6/nutri-jam#readme",
+  "dependencies": {
+    "google-search-results-nodejs": "^2.0.1"
+  }
 }

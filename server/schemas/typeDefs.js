@@ -10,26 +10,26 @@ const typeDefs = gql`
     savedFood: [Food]
   }
   type Food {
-    description: String
     foodId: String
+    recipe: String
+    userId: String
+    description: String
     image: String
-    link: String
-    title: String
   }
   type Query {
     me: User
   }
-  input SavedFoodInput {
-    description: String
+  input savedFoodInput {
     foodId: String
+    recipe: String
+    userId: String
+    description: String
     image: String
-    link: String
-    title: String
   }
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    saveFood(food: SavedFoodInput): User
+    saveFood(food: savedFoodInput): User
     removeFood(foodId: String!): User
   }
   type Auth {

@@ -25,11 +25,15 @@ export const LOGIN_USER = gql`
 `;
 
 export const SAVE_FOOD = gql`
-  mutation saveFood($content: foodData!) {
+  mutation saveFood($content: savedFoodInput!) {
     saveFood(content: $content) {
       _id
       username
+<<<<<<< HEAD
       savedFoodInput {
+=======
+      savedFood {
+>>>>>>> 440f1ad789b0e508f579024c43778ff5d6e4ea0d
         foodId
         title
       }
@@ -42,7 +46,7 @@ export const REMOVE_FOOD = gql`
     removeFood(foodId: $foodId) {
       _id
       username
-      savedFoods {
+      savedFood {
         foodId
         title
       }

@@ -1,3 +1,6 @@
+const apiKey =
+  "6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83";
+
 export const getMe = (token) => {
   return fetch("/api/users/me", {
     headers: {
@@ -27,13 +30,13 @@ export const login = (userData) => {
   });
 };
 
-export const saveFood = (foodData, token) => {
+export const saveFood = (savedFoodInput, token) => {
   return fetch("/api/users", {
     method: "PUT",
     headers: {
       "Content-Type": `Bearer ${token}`,
     },
-    body: JSON.stringify(foodData),
+    body: JSON.stringify(savedFoodInput),
   });
 };
 
@@ -46,8 +49,22 @@ export const removeFood = (foodId, token) => {
   });
 };
 
-// api search for recipes
-// https://www.boredapi.com/api/activity?participants=1
 export const searchFood = (query) => {
-    return fetch(`https://www.boredapi.com/api/activity?q=${query}`)
-}
+  const SerpApi = require("google-search-results-nodejs");
+  const search = new SerpApi.GoogleSearch(apiKey);
+
+  const params = {
+    q: { query },
+    location: "United States",
+    hl: "en",
+    gl: "us",
+  };
+
+  const callback = function (data) {
+    return data["recipes_results"];
+  };
+
+  // Show result!
+  const searchResult = search.json(params, callback);
+  return searchResult;
+};
