@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+// import { Link } from "react-router-dom";
 import { render, cleanup } from "@testing-library/react";
+// import { Navbar, Nav, Container, Modal, Tab } from "react-bootstrap";
 import "@testing-library/jest-dom/extend-expect";
-import AppNavbar from "..";
+import AppNavBar from "..";
 
 // const mockToggleHeader = jest.fn();
 // const currentRecipe = {
@@ -19,7 +20,7 @@ describe("Header component", () => {
   //renders Header test
   // First Test
   it("renders", () => {
-    render(<AppNavbar />);
+    render(<AppNavBar />);
   });
 });
 
