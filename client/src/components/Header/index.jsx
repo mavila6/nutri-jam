@@ -50,7 +50,7 @@ const AppNavbar = () => {
       >
         {/* make a tab container to do signup or login component */}
         <Tab.Container defaultActiveKey="login">
-          <Modal.Navbar closeButton>
+          <Modal.Header closeButton>
             <Modal.Title id="signup-modal">
               <Nav variant="pills">
                 <Nav.Item>
@@ -61,7 +61,7 @@ const AppNavbar = () => {
                 </Nav.Item>
               </Nav>
             </Modal.Title>
-          </Modal.Navbar>
+          </Modal.Header>
           <Modal.Body>
             <Tab.Content>
               <Tab.Pane eventKey="login">

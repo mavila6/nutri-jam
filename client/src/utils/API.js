@@ -1,4 +1,5 @@
-const apiKey = REACT_APP_API_KEY
+// require('dotenv').config()
+const apiKey = process.env.REACT_APP_API_KEY
 
 export const getMe = (token) => {
   return fetch("/api/users/me", {

@@ -8,13 +8,13 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import SearchFood from "./pages/SearchFood";
-import SavedFood from "./pages/SavedFood";
+// import SearchFood from "./pages/SearchFood";
+// import SavedFood from "./pages/SavedFood";
 import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
-console.log(process.env.REACT_APP_API_KEY)
+require('dotenv').config()
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -42,8 +42,8 @@ function App() {
         <>
           <Header />
           <Switch>
-            <Route exact path="/" component={SearchFood} />
-            <Route exact path="/saved" component={SavedFood} />
+            {/* <Route exact path="/" component={SearchFood} />
+            <Route exact path="/saved" component={SavedFood} /> */}
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
             <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
