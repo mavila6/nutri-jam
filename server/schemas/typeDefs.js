@@ -3,8 +3,8 @@ const { gql } = require("apollo-server-express");
 //type Food needs to be modified to API
 const typeDefs = gql`
   type User {
-    _id: ID
-    username: String
+    _id: ID!
+    username: String!
     email: String
     foodCount: Int
     savedFood: [Food]
