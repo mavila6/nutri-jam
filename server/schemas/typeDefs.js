@@ -1,6 +1,8 @@
 const { gql } = require("apollo-server-express");
 
 //type Food needs to be modified to API
+//type: Food possibly need to add userId
+//how do we add the ingredients array
 const typeDefs = gql`
   type User {
     _id: ID!
@@ -11,20 +13,23 @@ const typeDefs = gql`
   }
   type Food {
     foodId: String
-    recipe: String
-    userId: String
-    description: String
-    image: String
+    title: String
+    link: String
+    source: String
+    totalTime: String
+    ingredients: [""]
   }
   type Query {
     me: User
   }
   input savedFoodInput {
     foodId: String
-    recipe: String
     userId: String
-    description: String
-    image: String
+    title: String
+    link: String
+    source: String
+    totalTime: String
+    ingredients: []
   }
   type Mutation {
     login(email: String!, password: String!): Auth
