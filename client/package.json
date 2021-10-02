@@ -1,49 +1,4 @@
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "name": "nutri-jam",
-  "version": "0.1.0",
-  "private": true,
-  "proxy": "http://localhost/3001",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "google-search-results-nodejs": "^2.0.1",
-    "jwt-decode": "^3.1.2",
-    "react": "^17.0.2",
-    "react-bootstrap": "^1.6.4",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
-=======
-=======
->>>>>>> 0b85b30b802d3d756ea08cdbbb69a44a8f361f34
 	"name": "client",
 	"version": "0.1.0",
 	"private": true,
@@ -84,8 +39,4 @@
 			"last 1 safari version"
 		]
 	}
-<<<<<<< HEAD
->>>>>>> 3d19ee812e4a36dd51afd380188912615c1b0409
-=======
->>>>>>> 0b85b30b802d3d756ea08cdbbb69a44a8f361f34
 }
