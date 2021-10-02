@@ -14,6 +14,10 @@ import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0b85b30b802d3d756ea08cdbbb69a44a8f361f34
 require('dotenv').config()
 
 const httpLink = createHttpLink({
