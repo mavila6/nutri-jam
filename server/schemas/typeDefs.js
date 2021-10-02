@@ -17,7 +17,7 @@ const typeDefs = gql`
     link: String
     source: String
     totalTime: String
-    ingredients: [""]
+    ingredients: []
   }
   type Query {
     me: User
