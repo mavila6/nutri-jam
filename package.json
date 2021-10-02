@@ -21,6 +21,7 @@
     "google-search-results-nodejs": "^2.0.1",
     "react-router-dom": "^5.3.0",
     "dotenv": "^10.0.0"
+  },
 }
-}
+
 
