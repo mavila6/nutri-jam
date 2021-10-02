@@ -29,7 +29,7 @@ const typeDefs = gql`
     link: String
     source: String
     totalTime: String
-    ingredients: [""]
+    ingredients: []
   }
   type Mutation {
     login(email: String!, password: String!): Auth
