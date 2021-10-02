@@ -13,9 +13,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.1",
     "concurrently": "^5.1.0"
   },
   "dependencies": {
+    "google-search-results-nodejs": "^2.0.1",
+    "react-router-dom": "^5.3.0"
     "dotenv": "^10.0.0"
   }
 }

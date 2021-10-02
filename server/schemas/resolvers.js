@@ -16,7 +16,9 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
+      console.log(args);
       const user = await User.create(args);
+      // add try catch block and console log error
       const token = signToken(user);
       return { token, user };
     },
