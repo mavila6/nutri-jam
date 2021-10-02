@@ -14,7 +14,7 @@ import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
-console.log(process.env.REACT_APP_API_KEY);
+require('dotenv').config()
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
