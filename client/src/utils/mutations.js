@@ -13,8 +13,8 @@ export const ADD_USER = gql`
 `;
 
 export const LOGIN_USER = gql`
-  mutation loginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
       token
       user {
         _id
@@ -29,7 +29,7 @@ export const SAVE_FOOD = gql`
     saveFood(content: $content) {
       _id
       username
-      savedFoodInput {
+      savedFood {
         foodId
         title
       }
