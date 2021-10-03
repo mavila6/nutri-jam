@@ -7,7 +7,7 @@
 //   Button,
 //   Card,
 //   CardColumns,
-// } from "react-bootstrap"; 
+// } from "react-bootstrap";
 
 // import { useMutation } from "@apollo/client";
 // import { SAVE_FOOD } from "../utils/mutations";
@@ -23,7 +23,7 @@
 
 //   useEffect(() => {
 //     return () => saveFoodIds(getSavedFoodIds);
-//   }); 
+//   });
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
@@ -38,7 +38,7 @@
 //       }
 //       const { items } = await response.json();
 
-//       const savedFoodInput = items.map((food) => ({
+//       const foodData = items.map((food) => ({
 //         // foodId: lorem,
 //         // recipe: lorem,
 //         // userId:lorem,
@@ -46,7 +46,7 @@
 //         // image: lorem  will place our response data here
 //       }));
 
-//       setSearchedFood(savedFoodInput);
+//       setSearchedFood(foodData);
 //       setSearchInput("");
 //     } catch (err) {
 //       console.error(err);

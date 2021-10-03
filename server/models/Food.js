@@ -26,7 +26,7 @@ const foodSchema = new Schema({
     type: String,
   },
   ingredients: {
-    type: String,
+    type: [String],
   },
 });
 
