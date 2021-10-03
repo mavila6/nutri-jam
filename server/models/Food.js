@@ -12,17 +12,22 @@ const foodSchema = new Schema({
     type: String,
     required: true,
   },
-  recipe: {
+  title: {
     type: String,
   },
-  description: {
+  link: {
     type: String,
     required: true,
   },
-  image: {
+  source: {
     type: String,
   },
-  
+  totalTime: {
+    type: String,
+  },
+  ingredients: {
+    type: String,
+  },
 });
 
 module.exports = foodSchema;

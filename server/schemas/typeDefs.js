@@ -17,7 +17,7 @@ const typeDefs = gql`
     link: String
     source: String
     totalTime: String
-    ingredients: [""]
+    ingredients: String
   }
   type Query {
     me: User
@@ -29,7 +29,7 @@ const typeDefs = gql`
     link: String
     source: String
     totalTime: String
-    ingredients: []
+    ingredients: String
   }
   type Mutation {
     login(email: String!, password: String!): Auth
