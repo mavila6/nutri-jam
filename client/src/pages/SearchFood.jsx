@@ -15,6 +15,8 @@ import Auth from "../utils/auth";
 import { searchFood } from "../utils/API";
 import { saveFoodIds, getSavedFoodIds } from "../utils/localStorage";
 
+const SerpApi = require("google-search-results-nodejs");
+const search = new SerpApi.GoogleSearch("6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83");
 const SearchFood = () => {
   const [searchedFood, setSearchedFood] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -26,31 +28,35 @@ const SearchFood = () => {
   });
 
   const handleSubmit = async (e) => {
+      console.log("click")
     e.preventDefault();
 
-    if (!searchInput) {
-      return false;
-    }
+    // if (!searchInput) {
+    //   return false;
+    // }
     try {
-      const response = await searchFood(searchInput);
-      if (!response.ok) {
-        throw new Error("Oops! You got an error.");
-      }
-      const { items } = await response.json();
+    //   const response = await searchFood(searchInput);
+        // const response = await fetch ()
+    const response  = await fetch("https://serpapi.com/search.json?q=glutenfreebread%7D&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83", {mode: 'no-cors'})
+    //   if (!response.ok) {
+    //     throw new Error("Oops! You got an error.");
+    //   }
+    //   const { items } = await response.json();
 
-      const foodData = items.map((food) => ({
-        foodId: food.id,
-        title: food.title,
-        link: food.link,
-        source: food.source,
-        totalTime: food.totalTime,
-        ingredients: food.ingredients,
-      }));
+    //   const foodData = items.map((food) => ({
+    //     foodId: food.id,
+    //     title: food.title,
+    //     link: food.link,
+    //     source: food.source,
+    //     totalTime: food.totalTime,
+    //     ingredients: food.ingredients,
+    //   }));
 
-      setSearchedFood(foodData);
+    //   setSearchedFood(foodData);
+    console.log(response)
       setSearchInput("");
     } catch (err) {
-      console.error(err);
+      console.error("line 59", err);
     }
   };
 
@@ -92,6 +98,9 @@ const SearchFood = () => {
               <Col xs={12} md={4}>
                 <Button type="submit" variant="success" size="lg">
                   Submit Search
+                </Button>
+                <Button onClick={handleSubmit} variant="success" size="lg">
+                  Test!
                 </Button>
               </Col>
             </Form.Row>

@@ -13,10 +13,11 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware,
 });
+const cors = require("cors")
 
 // integrate our Apollo server with the Express application as middleware
 server.applyMiddleware({ app });
-
+app.use(cors({origin: 'http://localhost:3000'}));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
