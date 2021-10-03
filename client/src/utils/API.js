@@ -1,5 +1,5 @@
 // require('dotenv').config()
-const apiKey = process.env.REACT_APP_API_KEY
+const apiKey = process.env.REACT_APP_API_KEY;
 
 export const getMe = (token) => {
   return fetch("/api/users/me", {
@@ -30,13 +30,13 @@ export const login = (userData) => {
   });
 };
 
-export const saveFood = (savedFoodInput, token) => {
+export const saveFood = (foodData, token) => {
   return fetch("/api/users", {
     method: "PUT",
     headers: {
       "Content-Type": `Bearer ${token}`,
     },
-    body: JSON.stringify(savedFoodInput),
+    body: JSON.stringify(foodData),
   });
 };
 
