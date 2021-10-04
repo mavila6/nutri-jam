@@ -1,7 +1,5 @@
 // require('dotenv').config()
 // const apiKey = process.env.REACT_APP_API_KEY;
-const apiKey = "6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83"
-
 export const getMe = (token) => {
   return fetch("/api/users/me", {
     headers: {
@@ -48,24 +46,4 @@ export const removeFood = (foodId, token) => {
       authorization: `Bearer ${token}`,
     },
   });
-};
-
-export const searchFood = (query) => {
-  const SerpApi = require("google-search-results-nodejs");
-  const search = new SerpApi.GoogleSearch(apiKey);
-
-  const params = {
-    q: { query },
-    location: "United States",
-    hl: "en",
-    gl: "us",
-  };
-
-  const callback = function (data) {
-    return data["recipes_results"];
-  };
-
-  // Show result!
-  const searchResult = search.json(params, callback);
-  return searchResult;
 };
