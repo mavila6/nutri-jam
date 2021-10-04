@@ -18,6 +18,7 @@ const typeDefs = gql`
     source: String
     totalTime: String
     ingredients: [String]
+
   }
   type Query {
     me: User
