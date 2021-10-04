@@ -18,7 +18,6 @@ const typeDefs = gql`
     source: String
     totalTime: String
     ingredients: [String]
-
   }
   type Query {
     me: User
@@ -40,6 +39,9 @@ const typeDefs = gql`
   type Auth {
     token: ID!
     user: User
+  }
+  type Checkout {
+    session: ID
   }
 `;
 
