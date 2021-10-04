@@ -118,6 +118,37 @@ const resolvers = {
         return updatedUser;
       }
     },
+    addDonate: async (parent, { donations }, context) => {
+      console.log(context);
+      if (context.user) {
+        const donate = new Donate({ donations });
+
+        await Use.findByIdAndUpdate(context.user._id, {
+          $push: { donates: donate },
+        });
+
+        return donate;
+      }
+      throw new AuthenticationError("You Must Be Logged In. Try Again!");
+    },
+    updateUser: async (parent, args, context) => {
+      if (context.user) {
+        return await User.findByIdAndUpdate(context.user._id, args, {
+          new: true,
+        });
+      }
+
+      throw new AuthenticationError("You Must Be Logged In. Try Again!");
+    },
+    updateDonation: async (parent, { _id, quantity }) => {
+      const decrement = Math.abs(quantity) * -1;
+
+      return await Donation.findByIdAndUpdate(
+        _id,
+        { $inc: { quantity: decrement } },
+        { new: true }
+      );
+    },
   },
 };
 
