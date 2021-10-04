@@ -37,8 +37,40 @@ const resolvers = {
       throw new AuthenticationError("You Must Be Logged In. Try Again!");
     },
     checkout: async (parent, args, context) => {
+      const url = new URL(context.headers.referer).origin;
       const donate = new Donate({ donations: args.donations });
+      const line_items = [];
+
       const { donations } = await donate.populate("donations").execPopulate();
+
+      for (let i = 0; i < donations.length; i++) {
+        const donation = await stripe.donations.create({
+          name: donations[i].name,
+          description: donations[i].description,
+          images: [`${url}/images/${donations[i].image}`],
+        });
+
+        const amount = await stripe.amounts.create({
+          donation: donation.id,
+          unit_amount: donations[i].amount * 100,
+          currency: "usd",
+        });
+
+        line_items.push({
+          amount: amount.id,
+          quantity: 1,
+        });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items,
+        mode: "payment",
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url}/`,
+      });
+
+      return { session: session.id };
     },
   },
   Mutation: {
