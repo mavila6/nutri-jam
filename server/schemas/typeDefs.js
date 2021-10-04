@@ -22,7 +22,9 @@ const typeDefs = gql`
   }
   type Query {
     me: User
+    donations(name: String): [Donation]
     donation(_id ID!): Donation
+    donate(_id: ID!): Donate
     checkout(donation: [ID]!): Checkout
   }
   input foodData {
