@@ -24,7 +24,6 @@ const typeDefs = gql`
   }
   input foodData {
     foodId: String
-    userId: String
     title: String
     link: String
     source: String
