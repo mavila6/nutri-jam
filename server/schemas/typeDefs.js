@@ -3,6 +3,7 @@ const { gql } = require("apollo-server-express");
 //type Food needs to be modified to API
 //type: Food possibly need to add userId
 //how do we add the ingredients array
+//Query -- checkout: Do we create donation component?
 const typeDefs = gql`
   type User {
     _id: ID!
@@ -21,6 +22,8 @@ const typeDefs = gql`
   }
   type Query {
     me: User
+    donation(_id ID!): Donation
+    checkout(donation: [ID]!): Checkout
   }
   input foodData {
     foodId: String
