@@ -14,6 +14,28 @@ const resolvers = {
       }
       throw new AuthenticationError("Login Required");
     },
+    donations: async (parent, { category, name }) => {
+      const params = {};
+      if (name) {
+        params.name = {
+          $regex: name,
+        };
+      }
+      return await Donation.find(params).populate("");
+    },
+    donation: async (parent, { _id }) => {
+      return await Donation.findById(_id).populate("");
+    },
+    donate: async (parent, { _id }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id).populate({
+          path: "donates.donations",
+          populate: "",
+        });
+        return user.donates.id(_id);
+      }
+      throw new AuthenticationError("You Must Be Logged In. Try Again!");
+    },
     checkout: async (parent, args, context) => {
       const donate = new Donate({ donations: args.donations });
       const { donations } = await donate.populate("donations").execPopulate();
