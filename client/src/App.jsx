@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+// import ThemeContext from "./context/ThemeContext/ThemeContext"
+// import RecipeProvider from "./context/RecipeContext/RecipeProvider"
 import {
   ApolloProvider,
   ApolloClient,
@@ -8,7 +10,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-// import SearchFood from "./pages/SearchFood";
+import SearchFood from "./pages/SearchFood";
 // import SavedFood from "./pages/SavedFood";
 import Header from "./components/Header";
 import Signup from "./components/Signup";
@@ -36,19 +38,20 @@ const client = new ApolloClient({
 });
 
 function App() {
+  // const context = useContext(ThemeContext)
   return (
     <ApolloProvider client={client}>
       <Router>
-        <>
+        {/* <RecipeProvider> */}
           <Header />
           <Switch>
-            {/* <Route exact path="/" component={SearchFood} />
-            <Route exact path="/saved" component={SavedFood} /> */}
+            <Route exact path="/" component={SearchFood} />
+            {/* <Route exact path="/saved" component={SavedFood} /> */}
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/login" component={Login} />
             <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
           </Switch>
-        </>
+        {/* </RecipeProvider> */}
       </Router>
     </ApolloProvider>
   );

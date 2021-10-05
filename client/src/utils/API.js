@@ -1,6 +1,5 @@
 // require('dotenv').config()
-const apiKey = process.env.REACT_APP_API_KEY;
-
+// const apiKey = process.env.REACT_APP_API_KEY;
 export const getMe = (token) => {
   return fetch("/api/users/me", {
     headers: {
@@ -49,22 +48,13 @@ export const removeFood = (foodId, token) => {
   });
 };
 
-export const searchFood = (query) => {
-  const SerpApi = require("google-search-results-nodejs");
-  const search = new SerpApi.GoogleSearch(apiKey);
-
-  const params = {
-    q: { query },
-    location: "United States",
-    hl: "en",
-    gl: "us",
-  };
-
-  const callback = function (data) {
-    return data["recipes_results"];
-  };
-
-  // Show result!
-  const searchResult = search.json(params, callback);
-  return searchResult;
+export const searchFoodApi = async (query) => {
+  let results;
+  await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
+    .then((data) => data.json())
+    .then(function (res) {
+      console.log("res", res);
+      results = res;
+    });
+  return results;
 };
