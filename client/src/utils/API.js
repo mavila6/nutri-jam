@@ -47,3 +47,14 @@ export const removeFood = (foodId, token) => {
     },
   });
 };
+
+export const searchFoodApi = async (query) => {
+  let results;
+  await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
+    .then((data) => data.json())
+    .then(function (res) {
+      console.log("res", res);
+      results = res;
+    });
+  return results;
+};

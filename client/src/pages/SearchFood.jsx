@@ -9,14 +9,18 @@ import {
   CardColumns,
 } from "react-bootstrap";
 
+// import REACT_APP_API_KEY from ""
+
 import { useMutation } from "@apollo/client";
 import { SAVE_FOOD } from "../utils/mutations";
 import Auth from "../utils/auth";
-import { searchFood } from "../utils/API";
+import { searchFoodApi } from "../utils/API";
 import { saveFoodIds, getSavedFoodIds } from "../utils/localStorage";
 
-const SerpApi = require("google-search-results-nodejs");
-const search = new SerpApi.GoogleSearch("6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83");
+// const SerpApi = require("google-search-results-nodejs");
+// const search = new SerpApi.GoogleSearch(
+//   "6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83"
+// );
 const SearchFood = () => {
   const [searchedFood, setSearchedFood] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -27,37 +31,86 @@ const SearchFood = () => {
     return () => saveFoodIds(getSavedFoodIds);
   });
 
+  // const search = new SerpApi.GoogleSearch("6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83");
+// const result = search.json({
+//   q: "Coffee", 
+//   location: "United States"
+//  }, (result) => {
+//    return result;
+//  });
+//  console.log(result)
+//   fetch(
+//     "https://serpapi.com/search.json?q=coffee&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83",
+//     { mode: "no-cors" }
+//   ).then(function (response) {
+//     response.json().then(function (data) {
+//       console.log(data);
+//     });
+//   });
   const handleSubmit = async (e) => {
-      console.log("click")
+    console.log("click");
     e.preventDefault();
 
-    // if (!searchInput) {
-    //   return false;
-    // }
-    try {
-    //   const response = await searchFood(searchInput);
-        // const response = await fetch ()
-    // const response  = await fetch("https://cors-anywhere.serpapi.com/search.json?q=glutenfreebread&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83")
-    const response = await fetch(`/api/results/:q/${searchInput}`)
-    
-      if (!response.ok) {
-        throw new Error("Oops! You got an error.");
+      if(!searchInput) {
+        return false
       }
-      const { items } = await response.json();
-        const body = await response.body
-        // const reader = body.getReader()
-      const foodData = items.map((food) => ({
-        foodId: food.id,
-        title: food.title,
-        link: food.link,
-        source: food.source,
-        totalTime: food.totalTime,
-        ingredients: food.ingredients,
-      }));
 
-    //   setSearchedFood(foodData);
-    // console.log(reader.read())
-    console.log(response)
+    //     // if (!searchInput) {
+    //     //   return false;
+    //     // }
+    try {
+            const response = await searchFoodApi(searchInput);
+
+            const {meals} = response;
+            console.log(meals)
+            const foodData = meals.map((meals) => ({
+              idMeal:meals.idMeal,
+              strMealThumb:meals.strMealThumb,
+              strMeal:meals.strMeal,
+              strIngredient1:meals.strIngredient1,
+              strIngredient2: meals.strIngredient2,
+              strInstructions: meals.strInstructions,
+              strYoutube: meals.strYoutube
+            }))
+            // const foodData =meals.map((meals) => ({
+              
+            // }))
+      //         // const response = await fetch ()
+      //     // const response  = await fetch("https://cors-anywhere.serpapi.com/search.json?q=glutenfreebread&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83")
+
+      //     ), async (req, res) => {
+      //         // console.log(req.params.q)
+      //         //   const response = await axios.get(
+      //         //     `https://serpapi.com/search.json?q=${req.params.searchInput}&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83`
+      //         //   );
+      //         //   // console.log(response);
+      //         //   const json = await response.json
+      //         //   console.log(json)
+      //         //   res.json(response.data.recipes_results );
+
+      //         // const results = await searchFood(req.params.q, res);
+      //         // console.log(results);
+      //         // res.json(results);
+      //       };
+      // const response = await fetch(`/api/:q/${searchInput}`);
+
+      // if (!response.ok) {
+      //   throw new Error("Oops! You got an error.");
+      // }
+      // const { items } = await response.json();
+      // const body = await response.body;
+      // // const reader = body.getReader()
+      // const foodData = items.map((food) => ({
+      //   foodId: food.id,
+      //   title: food.title,
+      //   link: food.link,
+      //   source: food.source,
+      //   totalTime: food.totalTime,
+      //   ingredients: food.ingredients,
+      // }));
+
+      setSearchedFood(foodData);
+      // console.log(reader.read())
       setSearchInput("");
     } catch (err) {
       console.error("line 59", err);
@@ -121,28 +174,28 @@ const SearchFood = () => {
         <CardColumns>
           {searchedFood.map((food) => {
             return (
-              <Card key={food.foodId} border="dark">
-                {food.image ? (
+              <Card key={food.idMeal} border="dark">
+                {food.strMealThumb ? (
                   <Card.Img
-                    src={food.link}
-                    alt={`The link to ${food.title}`}
+                    src={food.strMealThumb}
+                    alt={`The link to ${food.strMeal}`}
                     variant="top"
                   />
                 ) : null}
                 <Card.Body>
-                  <Card.Title>{food.title}</Card.Title>
-                  <p className="small">Ingredients: {food.ingredients}</p>
-                  <Card.Text>{food.source}</Card.Text>
+                  <Card.Title>{food.strMeal}</Card.Title>
+                  <p className="small">Ingredients: {food.strIngredient1, food.strIngredient2}</p>
+                  <Card.Text>{food.strInstructions}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button
                       disabled={savedFoodIds?.some(
-                        (savedFoodId) => savedFoodId === food.foodId
+                        (savedFoodId) => savedFoodId === food.idMeal
                       )}
                       className="btn-block btn-info"
-                      onClick={() => handleSaveFood(food.foodId)}
+                      onClick={() => handleSaveFood(food.idMeal)}
                     >
                       {savedFoodIds?.some(
-                        (savedFoodId) => savedFoodId === food.foodId
+                        (savedFoodId) => savedFoodId === food.idMeal
                       )
                         ? "This recipe has already been saved!"
                         : "Save this Recipe!"}

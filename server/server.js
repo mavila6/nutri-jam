@@ -2,12 +2,12 @@ const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const db = require("./config/connection");
-const axios = require("axios");
+// const axios = require("axios");
+const REACT_APP_API_KEY = require("dotenv")
 
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
 
-const SerpApi = require("google-search-results-nodejs");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,7 +18,10 @@ const server = new ApolloServer({
 });
 const cors = require("cors");
 
-const apiKey = "6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83"
+const SerpApi = require("google-search-results-nodejs");
+
+const apiKey = REACT_APP_API_KEY
+
 
 // integrate our Apollo server with the Express application as middleware
 server.applyMiddleware({ app });
@@ -31,32 +34,38 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
+// const search = new SerpApi.GoogleSearch("6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83");
+// search.json({
+//   q: "Coffee", 
+//   location: "United States"
+//  }, (result) => {
+//    console.log(result)
+//  })
+// const searchFood = (query) => {
+//   const search = new SerpApi.GoogleSearch("6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83");
+//   console.log(query, "line 34")
 
-const searchFood = (query) => {
-  const search = new SerpApi.GoogleSearch(apiKey);
-  console.log(query, "line 34")
-
-  const params = {
-    q: {query} ,
-    engine: "google",
-    location: "United States",
-    hl: "en",
-    gl: "us",
-  }
+//   const params = {
+//     q: {query} ,
+//     engine: "google",
+//     location: "United States",
+//     hl: "en",
+//     gl: "us",
+//   }
   
-  console.log(params);
+//   console.log(params);
 
-  const callback = function (data) {
-    console.log(data.recipes_results)
-    return data.recipes_results;
-  };
+//   const callback = function (data) {
+//     console.log(data.recipes_results)
+//     return data.recipes_results;
+//   };
 
   // Show result!
-  search.json(params, callback);
-};
+//   search.json(params, callback);
+// };
 
 app.get("/api/results/:q", async (req, res) => {
-  console.log(req.params.q)
+  console.log(req.recipes_results, "line 68")
   //   const response = await axios.get(
   //     `https://serpapi.com/search.json?q=${req.params.searchInput}&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83`
   //   );
@@ -64,9 +73,10 @@ app.get("/api/results/:q", async (req, res) => {
   //   const json = await response.json
   //   console.log(json)
   //   res.json(response.data.recipes_results );
-  const results = await searchFood(req.params.q, res);
-  console.log(results);
-  res.json(results);
+
+  // const results = await searchFood(req.params.q, res);
+  // console.log(results);
+  // res.json(results);
 });
 /* if we make a GET request to any location on the server that doesn't have an explicit route defined,
 respond with the production-ready React front-end code. */
@@ -81,4 +91,4 @@ db.once("open", () => {
   });
 });
 
-module.exports = searchFood
+// module.exports = searchFood
