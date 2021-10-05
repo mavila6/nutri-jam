@@ -30,30 +30,33 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
+
+
 const searchFood = (query) => {
   const search = new SerpApi.GoogleSearch(apiKey);
   console.log(query, "line 34")
-  search.json({
+
+  const params = {
     q: {query} ,
     engine: "google",
     location: "United States",
     hl: "en",
     gl: "us",
-  }, (results) => {
-    console.log(results)
-  });
-// console.log(params)
+  }
+  
+  console.log(params);
+
   const callback = function (data) {
-    console.log(data["recipes_results"])
+    console.log(data.recipes_results)
     return data.recipes_results;
   };
 
   // Show result!
-  search.json(results, callback);
+  search.json(params, callback);
 };
 
-app.get("/results/:searchInput", async (req, res) => {
-  console.log(req.params.searchInput)
+app.get("/api/results/:q", async (req, res) => {
+  console.log(req.params.q)
   //   const response = await axios.get(
   //     `https://serpapi.com/search.json?q=${req.params.searchInput}&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83`
   //   );
@@ -61,9 +64,9 @@ app.get("/results/:searchInput", async (req, res) => {
   //   const json = await response.json
   //   console.log(json)
   //   res.json(response.data.recipes_results );
-  const response = await searchFood(req.params.searchInput);
-  console.log(response);
-  res.json(response);
+  const results = await searchFood(req.params.q, res);
+  console.log(results);
+  res.json(results);
 });
 /* if we make a GET request to any location on the server that doesn't have an explicit route defined,
 respond with the production-ready React front-end code. */
@@ -77,3 +80,5 @@ db.once("open", () => {
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
+
+module.exports = searchFood

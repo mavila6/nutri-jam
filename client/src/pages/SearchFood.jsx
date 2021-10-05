@@ -38,21 +38,22 @@ const SearchFood = () => {
     //   const response = await searchFood(searchInput);
         // const response = await fetch ()
     // const response  = await fetch("https://cors-anywhere.serpapi.com/search.json?q=glutenfreebread&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83")
-    const response = await fetch(`/getSearchResults/${searchInput}`)
-    //   if (!response.ok) {
-    //     throw new Error("Oops! You got an error.");
-    //   }
-    //   const { items } = await response.json();
-        // const body = await response.body
+    const response = await fetch(`/api/results/:q/${searchInput}`)
+    
+      if (!response.ok) {
+        throw new Error("Oops! You got an error.");
+      }
+      const { items } = await response.json();
+        const body = await response.body
         // const reader = body.getReader()
-    //   const foodData = items.map((food) => ({
-    //     foodId: food.id,
-    //     title: food.title,
-    //     link: food.link,
-    //     source: food.source,
-    //     totalTime: food.totalTime,
-    //     ingredients: food.ingredients,
-    //   }));
+      const foodData = items.map((food) => ({
+        foodId: food.id,
+        title: food.title,
+        link: food.link,
+        source: food.source,
+        totalTime: food.totalTime,
+        ingredients: food.ingredients,
+      }));
 
     //   setSearchedFood(foodData);
     // console.log(reader.read())
