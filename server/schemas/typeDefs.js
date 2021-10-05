@@ -22,10 +22,6 @@ const typeDefs = gql`
   }
   type Query {
     me: User
-    donations(name: String): [Donation]
-    donation(_id ID!): Donation
-    donate(_id: ID!): Donate
-    checkout(donation: [ID]!): Checkout
   }
   input foodData {
     foodId: String
@@ -45,9 +41,13 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
-  type Checkout {
-    session: ID
-  }
 `;
+// donations(name: String): [Donation]
+//     donation(_id ID!): Donation
+//     donate(_id: ID!): Donate
+//     checkout(donation: [ID]!): Checkout
+// type Checkout {
+//   session: ID
+// }
 
 module.exports = typeDefs;
