@@ -49,11 +49,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You Need To Login!");
     },
-    removeFood: async (parent, { foodId }, context) => {
+    removeFood: async (parent, { idMeal }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { foods: food.foodId } },
+          { $pull: { foods: food.idMeal } },
           { new: true }
         );
         return updatedUser;
