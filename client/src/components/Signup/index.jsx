@@ -40,7 +40,7 @@ const Signup = () => {
 
       Auth.login(data.addUser.token);
     } catch (err) {
-      console.error(err)
+      console.error(err);
       setShowAlert(true);
     }
 
@@ -54,7 +54,7 @@ const Signup = () => {
   return (
     <>
       {/* this is needed for the validation function above */}
-      <Form noValidate={validated} onSubmit={handleSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         {/* show alert if server response is bad */}
         <Alert
           dismissible
@@ -81,7 +81,7 @@ const Signup = () => {
         </Form.Group>
 
         <Form.Group>
-          <Form.Label htmlFor="email address">Email Address</Form.Label>
+          <Form.Label htmlFor="email">Email Address</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter Your Email Address!"

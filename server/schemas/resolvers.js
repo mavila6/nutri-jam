@@ -35,25 +35,25 @@ const resolvers = {
         throw new AuthenticationError("Incorrect Password. Try Again!");
       }
 
-      const token = signToken(user, password);
+      const token = signToken(user);
       return { token, user };
     },
     saveFood: async (parent, { food }, context) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { foods: food } },
+          { $addToSet: { savedFood: food } },
           { new: true }
         );
         return updatedUser;
       }
       throw new AuthenticationError("You Need To Login!");
     },
-    removeFood: async (parent, { foodId }, context) => {
+    removeFood: async (parent, { idMeal }, context) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $pull: { foods: food.foodId } },
+          { $pull: { savedFood: food.foodId } },
           { new: true }
         );
         return updatedUser;

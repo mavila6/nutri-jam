@@ -14,14 +14,14 @@ const Login = () => {
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [login] = useMutation(LOGIN_USER);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleFormSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefalt();
 
     // check if the form has everything
@@ -32,7 +32,7 @@ const Login = () => {
     }
 
     try {
-      const { data } = await loginUser({
+      const { data } = await login({
         variables: userData,
       });
 
@@ -52,7 +52,7 @@ const Login = () => {
   return (
     <>
       {/* this is needed for the validation function above */}
-      <Form noValidate={validated} onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         {/* show alert if server response is bad */}
         <Alert
           dismissable

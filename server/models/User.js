@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
 // import schema from Food.js
-const foodSchema = require("./Food.js");
+const foodSchema = require("./Food");
 
 // userSchema
 const userSchema = new Schema(
@@ -16,7 +16,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      match: [/.+@\..+/, "Valid Email Address Required!"],
+    //   match: [/.+@\..+/, "Valid Email Address Required!"],
     },
     password: {
       type: String,

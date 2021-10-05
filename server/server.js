@@ -3,7 +3,7 @@ const { ApolloServer } = require("apollo-server-express");
 const path = require("path");
 const db = require("./config/connection");
 // const axios = require("axios");
-const REACT_APP_API_KEY = require("dotenv")
+// const REACT_APP_API_KEY = require("dotenv")
 
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
@@ -16,7 +16,7 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware,
 });
-const cors = require("cors");
+// const cors = require("cors");
 
 // const SerpApi = require("google-search-results-nodejs");
 
@@ -64,20 +64,20 @@ if (process.env.NODE_ENV === "production") {
 //   search.json(params, callback);
 // };
 
-app.get("/api/results/:q", async (req, res) => {
-  console.log(req.recipes_results, "line 68")
-  //   const response = await axios.get(
-  //     `https://serpapi.com/search.json?q=${req.params.searchInput}&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83`
-  //   );
-  //   // console.log(response);
-  //   const json = await response.json
-  //   console.log(json)
-  //   res.json(response.data.recipes_results );
+// app.get("/api/results/:q", async (req, res) => {
+//   console.log(req.recipes_results, "line 68")
+//   //   const response = await axios.get(
+//   //     `https://serpapi.com/search.json?q=${req.params.searchInput}&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83`
+//   //   );
+//   //   // console.log(response);
+//   //   const json = await response.json
+//   //   console.log(json)
+//   //   res.json(response.data.recipes_results );
 
-  // const results = await searchFood(req.params.q, res);
-  // console.log(results);
-  // res.json(results);
-});
+//   // const results = await searchFood(req.params.q, res);
+//   // console.log(results);
+//   // res.json(results);
+// });
 /* if we make a GET request to any location on the server that doesn't have an explicit route defined,
 respond with the production-ready React front-end code. */
 app.get("*", (req, res) => {
