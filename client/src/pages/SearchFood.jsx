@@ -156,9 +156,9 @@ const SearchFood = () => {
                 <Button type="submit" variant="success" size="lg">
                   Submit Search
                 </Button>
-                <Button onClick={handleSubmit} variant="success" size="lg">
+                {/* <Button onClick={handleSubmit} variant="success" size="lg">
                   Test!
-                </Button>
+                </Button> */}
               </Col>
             </Form.Row>
           </Form>

@@ -18,14 +18,14 @@ const server = new ApolloServer({
 });
 const cors = require("cors");
 
-const SerpApi = require("google-search-results-nodejs");
+// const SerpApi = require("google-search-results-nodejs");
 
-const apiKey = REACT_APP_API_KEY
+// const apiKey = REACT_APP_API_KEY
 
 
 // integrate our Apollo server with the Express application as middleware
 server.applyMiddleware({ app });
-app.use(cors({ origin: "http://localhost:3000" }));
+// app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
