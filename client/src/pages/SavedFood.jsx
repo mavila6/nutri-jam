@@ -21,7 +21,7 @@
 
 //   const userData = data?.me;
 
-//   const handleDeleteFood = async (foodId) => {
+//   const handleDeleteFood = async (idMeal) => {
 //     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
 //     if (!token) {
@@ -30,10 +30,10 @@
 
 //     try {
 //       const { data } = await removeFood({
-//         variables: { foodId: foodId },
+//         variables: { idMeal: idMeal },
 //       });
 
-//       removeFoodId(foodId);
+//       removeFoodId(idMeal);
 //     } catch (err) {
 //       console.error(err);
 //     }

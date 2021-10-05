@@ -30,21 +30,21 @@ export const SAVE_FOOD = gql`
       _id
       username
       savedFood {
-        foodId
-        title
+        idMeal
+        strMeal
       }
     }
   }
 `;
 
 export const REMOVE_FOOD = gql`
-  mutation removeFood($foodId: String!) {
-    removeFood(foodId: $foodId) {
+  mutation removeFood($idMeal: String!) {
+    removeFood(idMeal: $idMeal) {
       _id
       username
       savedFood {
-        foodId
-        title
+        idMeal
+        strMeal
       }
     }
   }
