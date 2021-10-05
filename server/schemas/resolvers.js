@@ -38,26 +38,27 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveFood: async (parent, { food }, context) => {
+    saveFood: async (parent, { content }, context) => {
       if (context.user) {
-        const updatedUser = await User.findByIdAndUpdate(
+        const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedFood: food } },
+          { $addToSet: { savedFood: content } },
           { new: true }
         );
-        return updatedUser;
+        return user;
       }
       throw new AuthenticationError("You Need To Login!");
     },
     removeFood: async (parent, { idMeal }, context) => {
       if (context.user) {
-        const updatedUser = await User.findByIdAndUpdate(
+        const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedFood: food.foodId } },
+          { $pull: { savedFood: {idMeal: idMeal } } },
           { new: true }
         );
-        return updatedUser;
+        return user;
       }
+      throw new AuthenticationError("Login to do that!!!")
     },
   },
 };

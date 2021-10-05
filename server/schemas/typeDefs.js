@@ -21,12 +21,16 @@ const typeDefs = gql`
     strIngredient3: String
     strInstructions: String
   }
+  type Auth {
+    token: ID!
+    user: User!
+  }
   type Query {
     me: User
   }
   input foodData {
     idMeal: ID!
-    strMeal: String
+    strMeal: String!
     strIngredient1: String
     strIngredient2: String
     strIngredient3: String
@@ -37,10 +41,6 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     saveFood(food: foodData!): User
     removeFood(idMeal: String!): User
-  }
-  type Auth {
-    token: ID!
-    user: User!
   }
 `;
 
