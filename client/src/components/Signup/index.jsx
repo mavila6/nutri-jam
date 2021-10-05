@@ -23,7 +23,7 @@ const Signup = () => {
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleFormSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // check if form has everything
@@ -40,6 +40,7 @@ const Signup = () => {
 
       Auth.login(data.addUser.token);
     } catch (err) {
+      console.error(err)
       setShowAlert(true);
     }
 
@@ -53,7 +54,7 @@ const Signup = () => {
   return (
     <>
       {/* this is needed for the validation function above */}
-      <Form noValidate={validated} onSubmit={handleFormSubmit}>
+      <Form noValidate={validated} onSubmit={handleSubmit}>
         {/* show alert if server response is bad */}
         <Alert
           dismissible

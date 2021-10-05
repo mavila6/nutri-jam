@@ -69,8 +69,9 @@ const SearchFood = () => {
               strMeal:meals.strMeal,
               strIngredient1:meals.strIngredient1,
               strIngredient2: meals.strIngredient2,
+              strIngredient3: meals.strIngredient3,
               strInstructions: meals.strInstructions,
-              strYoutube: meals.strYoutube
+              // strYoutube: meals.strYoutube
             }))
             // const foodData =meals.map((meals) => ({
               
@@ -101,7 +102,7 @@ const SearchFood = () => {
       // const body = await response.body;
       // // const reader = body.getReader()
       // const foodData = items.map((food) => ({
-      //   foodId: food.id,
+      //   idMeal: idMeal,
       //   title: food.title,
       //   link: food.link,
       //   source: food.source,
@@ -117,8 +118,8 @@ const SearchFood = () => {
     }
   };
 
-  const handleSaveFood = async (foodId) => {
-    const foodToSave = searchedFood.find((food) => food.foodId === foodId);
+  const handleSaveFood = async (idMeal) => {
+    const foodToSave = searchedFood.find((food) => food.idMeal === idMeal);
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -129,7 +130,7 @@ const SearchFood = () => {
       await foodSaved({
         variables: { content: foodToSave },
       });
-      setSavedFoodIds([...savedFoodIds, foodToSave.foodId]);
+      setSavedFoodIds([...savedFoodIds, foodToSave.idMeal]);
     } catch (err) {
       console.error(err);
     }
@@ -184,7 +185,8 @@ const SearchFood = () => {
                 ) : null}
                 <Card.Body>
                   <Card.Title>{food.strMeal}</Card.Title>
-                  <p className="small">Ingredients: {food.strIngredient1, food.strIngredient2}</p>
+                  <p className="small">Ingredients: {[food.strIngredient1, food.strIngredient2, food.strIngredient3]}</p>
+                  {/* <p className="small">Ingredients: {[food.strIngredient1.join(' '), food.strIngredient2.join(' '), food.strIngredient3]}</p> */}
                   <Card.Text>{food.strInstructions}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button

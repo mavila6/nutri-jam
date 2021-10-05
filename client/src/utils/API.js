@@ -39,8 +39,8 @@ export const saveFood = (foodData, token) => {
   });
 };
 
-export const removeFood = (foodId, token) => {
-  return fetch(`/api/users/food/${foodId}`, {
+export const removeFood = (idMeal, token) => {
+  return fetch(`/api/users/food/${idMeal}`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${token}`,

@@ -4,30 +4,33 @@ const { Schema } = require("mongoose");
 const foodSchema = new Schema({
   // do we need the description? Should I require?
   // saved food id from ??? API
-  foodId: {
+  idMeal: {
     type: String,
     required: true,
   },
-  userId: {
+  // strMealThumb: {
+  //   type: Image,
+  //   // ??????
+  // },
+  strMeal: {
     type: String,
     required: true,
   },
-  title: {
+  strIngredient1: {
     type: String,
   },
-  link: {
-    type: String,
-    required: true,
-  },
-  source: {
+  strIngredient2: {
     type: String,
   },
-  totalTime: {
+  strIngredient3: {
     type: String,
   },
-  ingredients: {
-    type: [String],
+  strInstructions: {
+    type: String,
   },
+  // strYoutube: {
+  //   type: [String],
+  // },
 });
 
 module.exports = foodSchema;
