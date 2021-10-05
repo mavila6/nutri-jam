@@ -7,6 +7,8 @@ const axios = require("axios");
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
 
+const SerpApi = require("google-search-results-nodejs");
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 const server = new ApolloServer({
@@ -29,27 +31,28 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
 const searchFood = (query) => {
-  const SerpApi = require("google-search-results-nodejs");
   const search = new SerpApi.GoogleSearch(apiKey);
   console.log(query, "line 34")
-  const params = {
-    q: query ,
+  search.json({
+    q: {query} ,
     engine: "google",
     location: "United States",
     hl: "en",
     gl: "us",
-  };
-console.log(params)
+  }, (results) => {
+    console.log(results)
+  });
+// console.log(params)
   const callback = function (data) {
     console.log(data["recipes_results"])
     return data.recipes_results;
   };
 
   // Show result!
-  search.json(params, callback);
+  search.json(results, callback);
 };
 
-app.get("/getSearchResults/:searchInput", async (req, res) => {
+app.get("/results/:searchInput", async (req, res) => {
   console.log(req.params.searchInput)
   //   const response = await axios.get(
   //     `https://serpapi.com/search.json?q=${req.params.searchInput}&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83`
