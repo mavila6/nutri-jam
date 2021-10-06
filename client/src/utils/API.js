@@ -30,6 +30,7 @@ export const login = (userData) => {
 };
 
 export const saveFood = (foodData, token) => {
+  console.log("saveBook hit")
   return fetch("/api/users", {
     method: "PUT",
     headers: {

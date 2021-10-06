@@ -65,7 +65,7 @@ const SearchFood = () => {
       //   throw new Error("something went wrong");
       // }
 
-      const { meals } = await response;
+      const { meals } = await response.json;
 
       console.log(meals);
       const foodData = meals.map((meals) => ({
@@ -78,6 +78,12 @@ const SearchFood = () => {
         strInstructions: meals.strInstructions,
         // strYoutube: meals.strYoutube
       }));
+      const ingredientsArr = [
+        food.strIngredient1,
+        food.strIngredient2,
+        food.strIngredient3
+      ]
+      const ingredientsSpacedOut = ingredientsArr.join("  ")
       // const foodData =meals.map((meals) => ({
 
       // }))
@@ -125,19 +131,20 @@ const SearchFood = () => {
 
   const handleSaveFood = async (idMeal) => {
     const foodToSave = searchedFood.find((food) => food.idMeal === idMeal);
+    console.log("foodToSave", foodToSave);
+    // const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
-    }
+    // if (!token) {
+    //   return false;
+    // }
     try {
-      await saveFood({
-        variables: { content: foodToSave },
+      const { data } = await saveFood({
+        variables: { foodData: { ...foodToSave } },
       });
+      console.log("data",data)
       setSavedFoodIds([...savedFoodIds, foodToSave.idMeal]);
     } catch (err) {
-      console.error(err);
+      console.log("handleSaveFoodError",err);
     }
   };
 
@@ -193,9 +200,7 @@ const SearchFood = () => {
                   <p className="small">
                     Ingredients:{" "}
                     {[
-                      food.strIngredient1,
-                      food.strIngredient2,
-                      food.strIngredient3,
+                     ingredientsSpacedOut
                     ]}
                   </p>
                   {/* <p className="small">Ingredients: {[food.strIngredient1.join(' '), food.strIngredient2.join(' '), food.strIngredient3]}</p> */}

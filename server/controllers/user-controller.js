@@ -49,7 +49,7 @@ module.exports = {
   },
   //save a food
   async saveFood({ user, body }, res) {
-    console.log(user);
+    console.log("user-controllers", user);
     try {
       const updatedUser = await User.findOneAndUpdate(
         { _id: user._id },

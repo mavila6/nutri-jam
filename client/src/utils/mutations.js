@@ -26,8 +26,8 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_FOOD = gql`
-  mutation saveFood($content: foodData!) {
-    saveFood(content: $content) {
+  mutation saveFood($foodData: foodData!) {
+    saveFood(foodData: $foodData) {
       _id
       username
       email

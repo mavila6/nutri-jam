@@ -38,11 +38,11 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveFood: async (parent, { savedFood }, context) => {
+    saveFood: async (parent, { content }, context) => {
       if (context.user) {
         const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedFood: savedFood } },
+          { $addToSet: { savedFood: content } },
           { new: true }
         );
         return user;
@@ -51,12 +51,12 @@ const resolvers = {
     },
     removeFood: async (parent, { idMeal }, context) => {
       if (context.user) {
-        const user = await User.findByIdAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedFood: {idMeal: idMeal } } },
+          { $pull: { savedFood: idMeal } },
           { new: true }
         );
-        return user;
+        return updatedUser;
       }
       throw new AuthenticationError("Login to do that!!!")
     },

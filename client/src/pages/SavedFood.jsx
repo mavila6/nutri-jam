@@ -40,6 +40,12 @@ const SavedFood = () => {
     }
   };
 
+  const ingredientsArr = [
+    food.strIngredient1/n,
+    food.strIngredient2/n,
+    food.strIngredient3
+  ]
+  const ingredientsSpacedOut = ingredientsArr.join("  ")
   return (
     <>
       <Jumbotron fluid className="text-light bg-dark">
@@ -71,9 +77,7 @@ const SavedFood = () => {
                   <p className="small">
                       Ingredients:{" "}
                     {[
-                      food.strIngredient1,
-                      food.strIngredient2,
-                      food.strIngredient3,
+                      ingredientsSpacedOut
                     ]}
                     </p>
                   <Card.Text>{food.strInstructions}</Card.Text>
