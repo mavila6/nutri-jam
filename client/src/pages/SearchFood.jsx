@@ -185,7 +185,7 @@ const SearchFood = () => {
 
   return (
     <ThemeProvider theme={theme}>
-            <AppBar position="relative" color="secondary">
+            <AppBar className="hero" position="relative" color="secondary">
             <Form onSubmit={handleSubmit}>
               <Form.Row>
                 <Col xs={12} md={8}>

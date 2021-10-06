@@ -71,6 +71,7 @@ const AppNavbar = () => {
                 )}
             </Grid>
             <Modal
+              className="modal"
               size="lg"
               show={showModal}
               onHide={() => setShowModal(false)}
