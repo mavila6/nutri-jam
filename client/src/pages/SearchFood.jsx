@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { AppBar, Toolbar, Typography, Input, Grid, InputAdornment, Card } from "@material-ui/core";
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import { createTheme, ThemeProvider, responsiveFontSizes, makeStyles } from '@material-ui/core/styles';
 import {
   Jumbotron,
   Container,
   Col,
   Form,
   Button,
-  Card,
   CardColumns,
 } from "react-bootstrap";
 
@@ -21,6 +23,44 @@ import { saveFoodIds, getSavedFoodIds } from "../utils/localStorage";
 // const search = new SerpApi.GoogleSearch(
 //   "6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83"
 // );
+
+let theme = createTheme({
+  palette: {
+      type: 'light',
+      primary: {
+          main: '#343a40',
+      },
+      secondary: {
+          main: '#D2F3D1',
+      },
+      error: {
+          main: '#B306EC',
+      },
+      success: {
+          main: '#07e210',
+      },
+      info: {
+          main: '#167cce',
+      },
+      warning: {
+          main: '#b0adb1',
+      },
+  },
+  breakpoints: {
+      values: {
+          xs: 320,
+          sm: 481,
+          md: 769,
+          lg: 1025,
+          xl: 1201
+      },
+  },
+});
+theme = responsiveFontSizes(theme);
+
+// const useStyles = makeStyles((theme) => ({
+
+// }));
 const SearchFood = () => {
   const [searchedFood, setSearchedFood] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -141,15 +181,15 @@ const SearchFood = () => {
     }
   };
 
+ // const classes = useStyles();
+
   return (
-    <>
-      <Jumbotron fluid className="text-light bg-dark">
-        <Container>
-          <h1>Search for Recipes!</h1>
-          <Form onSubmit={handleSubmit}>
-            <Form.Row>
-              <Col xs={12} md={8}>
-                <Form.Control
+    <ThemeProvider theme={theme}>
+            <AppBar className="hero" position="relative" color="secondary">
+            <Form onSubmit={handleSubmit}>
+              <Form.Row>
+                <Col xs={12} md={8}>
+                  <Form.Control
                   name="searchInput"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
@@ -162,16 +202,72 @@ const SearchFood = () => {
                 <Button type="submit" variant="success" size="lg">
                   Submit Search
                 </Button>
-                {/* <Button onClick={handleSubmit} variant="success" size="lg">
-                  Test!
-                </Button> */}
               </Col>
             </Form.Row>
           </Form>
-        </Container>
-      </Jumbotron>
-
-      <Container>
+            </AppBar>
+            <Typography variant="h2" align="center" color="error">{searchedFood.length
+            ? `Viewing ${searchedFood.length} results:`
+            : "Search for a recipe to begin"}</Typography>
+            <Grid container spacing={10} align="center" overflowX="scroll">
+              {searchedFood.map((food) => {
+                return (
+                  <Grid item>
+                      <Card style={{ height: 600, width: 300}} key={food.idMeal} border="solid" textAlign="center">
+                          <Typography variant="subtitle1">
+                          {food.strMeal} 
+                          </Typography>
+                          <img src={food.strMealThumb} height="200px" width="275px" alt={`The link to ${food.strMeal}`}></img>
+                          <a href="">Website</a>
+                          <Typography variant="subtitle2"> Ingredients:{" "}
+                            {[
+                              food.strIngredient1,
+                              food.strIngredient2,
+                              food.strIngredient3,
+                            ]}</Typography>
+                          <Typography variant="subtitle2">{food.strInstructions}</Typography>
+                          <Button size="small" color="secondary" disabled={savedFoodIds?.some(
+                          (savedFoodId) => savedFoodId === food.idMeal)}
+                          className="btn-block btn-info"
+                          onClick={() => handleSaveFood(food.idMeal)}> {savedFoodIds?.some(
+                            (savedFoodId) => savedFoodId === food.idMeal)
+                            ? "This recipe has already been saved!"
+                            : "Save this Recipe!"}</Button>
+                      </Card>
+                  </Grid>
+                )
+              })}
+            </Grid>
+      </ThemeProvider>
+       // <>
+    //   <Jumbotron fluid className="text-light bg-dark">
+    //     <Container>
+    //       <h1>Search for Recipes!</h1>
+    //       <Form onSubmit={handleSubmit}>
+    //         <Form.Row>
+    //           <Col xs={12} md={8}>
+    //             <Form.Control
+    //               name="searchInput"
+    //               value={searchInput}
+    //               onChange={(e) => setSearchInput(e.target.value)}
+    //               type="text"
+    //               size="lg"
+    //               placeholder="Search for a recipe"
+    //             />
+    //           </Col>
+    //           <Col xs={12} md={4}>
+    //             <Button type="submit" variant="success" size="lg">
+    //               Submit Search
+    //             </Button>
+    //             {/* <Button onClick={handleSubmit} variant="success" size="lg">
+    //               Test!
+    //             </Button> */}
+    //           </Col>
+    //         </Form.Row>
+    //       </Form>
+    //     </Container>
+    //   </Jumbotron>
+          /* <Container>
         <h2>
           {searchedFood.length
             ? `Viewing ${searchedFood.length} results:`
@@ -183,7 +279,7 @@ const SearchFood = () => {
               <Card key={food.idMeal} border="dark">
                 {food.strMealThumb ? (
                   <Card.Img
-                    src={food.strMealThumb}
+                  src={food.strMealThumb}
                     alt={`The link to ${food.strMeal}`}
                     variant="top"
                   />
@@ -198,30 +294,30 @@ const SearchFood = () => {
                       food.strIngredient3,
                     ]}
                   </p>
-                  {/* <p className="small">Ingredients: {[food.strIngredient1.join(' '), food.strIngredient2.join(' '), food.strIngredient3]}</p> */}
-                  <Card.Text>{food.strInstructions}</Card.Text>
-                  {Auth.loggedIn() && (
-                    <Button
-                      disabled={savedFoodIds?.some(
-                        (savedFoodId) => savedFoodId === food.idMeal
-                      )}
-                      className="btn-block btn-info"
-                      onClick={() => handleSaveFood(food.idMeal)}
-                    >
-                      {savedFoodIds?.some(
-                        (savedFoodId) => savedFoodId === food.idMeal
-                      )
-                        ? "This recipe has already been saved!"
-                        : "Save this Recipe!"}
-                    </Button>
-                  )}
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </CardColumns>
-      </Container>
-    </>
+                  {/* <p className="small">Ingredients: {[food.strIngredient1.join(' '), food.strIngredient2.join(' '), food.strIngredient3]}</p> */
+      //             <Card.Text>{food.strInstructions}</Card.Text>
+      //             {Auth.loggedIn() && (
+      //               <Button
+      //               disabled={savedFoodIds?.some(
+      //                 (savedFoodId) => savedFoodId === food.idMeal
+      //                 )}
+      //                 className="btn-block btn-info"
+      //                 onClick={() => handleSaveFood(food.idMeal)}
+      //                 >
+      //                 {savedFoodIds?.some(
+      //                   (savedFoodId) => savedFoodId === food.idMeal
+      //                   )
+      //                   ? "This recipe has already been saved!"
+      //                   : "Save this Recipe!"}
+      //               </Button>
+      //             )}
+      //           </Card.Body>
+      //         </Card>
+      //       );
+      //     })}
+      //   </CardColumns>
+      // </Container>
+    // </>
     //   ); Will be replaced with our Material UI code
   );
 };

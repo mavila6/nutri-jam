@@ -1,4 +1,21 @@
-.App {
+* {
+  padding: 2px;
+  margin: 2px;
+}
+.modal {
+  z-index: 10001;
+  margin-top: 285px;
+} 
+
+/* .header {
+  z-index: 1;
+}
+
+.hero {
+  z-index: 1;
+}
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +52,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
