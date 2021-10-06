@@ -60,13 +60,48 @@ const AppNavbar = () => {
                 <Grid item xl={9}>
                     <Typography variant="h4" color="secondary" as={Link} to="/">NutriJAM</Typography>
                 </Grid>
-                <Grid item xl={1}>
-                    <Link as={Link} to="/saved" color="secondary" variant="body1" underline="hover" as={Link} to="/">My Recipes</Link>
-                </Grid>
+                {Auth.loggedIn() ? (
                 <Grid item >
-                    <Link as={Link} to="/" color="secondary" variant="body1" underline="hover">Login/Sign-Up</Link>
+                    <Link onClick={Auth.logout} color="secondary" variant="body1" underline="hover">Logout</Link>
                 </Grid>
+                ) : (
+                <Grid item >
+                    <Link onClick={() => setShowModal(true)} color="secondary" variant="body1" underline="hover">Login/Signup</Link>
+                </Grid>
+                )}
             </Grid>
+            <Modal
+              size="lg"
+              show={showModal}
+              onHide={() => setShowModal(false)}
+              aria-labelledby="signup-modal"
+            >
+            {/* make a tab container to do signup or login component */}
+            <Tab.Container defaultActiveKey="login">
+              <Modal.Header closeButton>
+                <Modal.Title id="signup-modal">
+                  <Nav variant="pills">
+                    <Nav.Item>
+                      <Nav.Link eventKey="login">Login!</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="signup">Signup!</Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Tab.Content>
+                  <Tab.Pane eventKey="login">
+                    <Login handleModalClose={() => setShowModal(false)} />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="signup">
+                    <Signup handleModalClose={() => setShowModal(false)} />
+                  </Tab.Pane>
+                </Tab.Content>
+              </Modal.Body>
+            </Tab.Container>
+          </Modal>
         </Toolbar>
     </AppBar>
 </ThemeProvider>
@@ -135,7 +170,9 @@ const AppNavbar = () => {
   //   </>
   );
 };
-
+/* <Grid item xl={1}>
+<Link as={Link} to="/saved" color="secondary" variant="body1" underline="hover" as={Link} to="/">My Recipes</Link>
+</Grid> */
 /* <Drawer anchor="right" variant="temporary" open={open} onClose={toggleDrawer(false)} onOpen={toggleDrawer(true)}>
   <Box>
       <Link as={Link} to="/saved" color="secondary">My Recipes</Link>
