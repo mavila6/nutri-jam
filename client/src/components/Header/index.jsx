@@ -58,10 +58,10 @@ const AppNavbar = () => {
             <Grid container spacing={2}>
                     <img src="../favicon.ico" alt="logo" height="60" width="60" marginX="5px"></img>
                 <Grid item xl={9}>
-                    <Typography variant="h4" color="secondary">NutriJAM</Typography>
+                    <Typography variant="h4" color="secondary" as={Link} to="/">NutriJAM</Typography>
                 </Grid>
                 <Grid item xl={1}>
-                    <Link as={Link} to="/saved" color="secondary" variant="body1" underline="hover">My Recipes</Link>
+                    <Link as={Link} to="/saved" color="secondary" variant="body1" underline="hover" as={Link} to="/">My Recipes</Link>
                 </Grid>
                 <Grid item >
                     <Link as={Link} to="/" color="secondary" variant="body1" underline="hover">Login/Sign-Up</Link>

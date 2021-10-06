@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Typography, Input, Grid, Button, InputAdornment, Card } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, Input, Grid, InputAdornment, Card } from "@material-ui/core";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { createTheme, ThemeProvider, responsiveFontSizes, makeStyles } from '@material-ui/core/styles';
-// import {
-//   Jumbotron,
-//   Container,
-//   Col,
-//   Form,
-//   Button,
-//   Card,
-//   CardColumns,
-// } from "react-bootstrap";
+import {
+  Jumbotron,
+  Container,
+  Col,
+  Form,
+  Button,
+  CardColumns,
+} from "react-bootstrap";
 
 // import REACT_APP_API_KEY from ""
 
@@ -187,41 +186,61 @@ const SearchFood = () => {
   return (
     <ThemeProvider theme={theme}>
             <AppBar position="relative" color="secondary">
-                <Toolbar>
-                    <Grid container spacing={2} align="center">
-                        <Grid item xs={12} s={12} md={12} l={12} xl={12}>
-                            <Typography variant="h4" textAlign="center">Make Food Yours!</Typography>
-                        </Grid>
-                        <Grid item xs={12} s={12} md={12} l={12} xl={12}>
-                            <Input type="search" placeholder="Search..." variant="filled" color="error" startAdornment={
-                                <InputAdornment position="start">
-                                        <SearchRoundedIcon/>
-                                </InputAdornment>
-                            }>
-                            </Input>
-                        </Grid>
-                        <Grid item xs={12} s={12} md={12} l={12} xl={12}>
-                            <Button type="submit" variant="success" color="secondary" fullWidth>Search</Button>
-                        </Grid>
-                    </Grid>
-                </Toolbar>
+            <Form onSubmit={handleSubmit}>
+              <Form.Row>
+                <Col xs={12} md={8}>
+                  <Form.Control
+                  name="searchInput"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  type="text"
+                  size="lg"
+                  placeholder="Search for a recipe"
+                />
+              </Col>
+              <Col xs={12} md={4}>
+                <Button type="submit" variant="success" size="lg">
+                  Submit Search
+                </Button>
+                { <Button onClick={handleSubmit} variant="success" size="lg">
+                  Test!
+                </Button> }
+              </Col>
+            </Form.Row>
+          </Form>
             </AppBar>
-            <Typography variant="h2" align="center" color="error">Recipes</Typography>
+            <Typography variant="h2" align="center" color="error">{searchedFood.length
+            ? `Viewing ${searchedFood.length} results:`
+            : "Search for a recipe to begin"}</Typography>
             <Grid container spacing={10} align="center" overflowX="scroll">
-                <Grid item>
-                    <Card style={{ height: 600, width: 300}} border="solid" textAlign="center">
-                        <Typography variant="subtitle1">
-                            Title: Delicious Veggie Bowl 
-                        </Typography>
-                        <img src="../images/stockFoodImg.jpg" height="200px" width="275px"></img>
-                        <a href="">Website</a>
-                        <Typography variant="subtitle2" marginTop="px">Source: Lorem ipsum dolor sit amet.</Typography>
-                        <Typography variant="subtitle2" marginTop="px">Time: Lorem, ipsum.</Typography>
-                        <Typography variant="subtitle2" marginTop="px">Ingredients: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores culpa quisquam quibusdam nemo nihil quas aut vero est pariatur reiciendis?</Typography>
-                        <Button size="small" color="secondary">Save Recipe</Button>
-                    </Card>
-                </Grid>
-              </Grid>
+              {searchedFood.map((food) => {
+                return (
+                  <Grid item>
+                      <Card style={{ height: 600, width: 300}} key={food.idMeal} border="solid" textAlign="center">
+                          <Typography variant="subtitle1">
+                          {food.strMeal} 
+                          </Typography>
+                          <img src={food.strMealThumb} height="200px" width="275px" alt={`The link to ${food.strMeal}`}></img>
+                          <a href="">Website</a>
+                          <Typography variant="subtitle2"> Ingredients:{" "}
+                            {[
+                              food.strIngredient1,
+                              food.strIngredient2,
+                              food.strIngredient3,
+                            ]}</Typography>
+                          <Typography variant="subtitle2">{food.strInstructions}</Typography>
+                          <Button size="small" color="secondary" disabled={savedFoodIds?.some(
+                          (savedFoodId) => savedFoodId === food.idMeal)}
+                          className="btn-block btn-info"
+                          onClick={() => handleSaveFood(food.idMeal)}> {savedFoodIds?.some(
+                            (savedFoodId) => savedFoodId === food.idMeal)
+                            ? "This recipe has already been saved!"
+                            : "Save this Recipe!"}</Button>
+                      </Card>
+                  </Grid>
+                )
+              })}
+            </Grid>
       </ThemeProvider>
        // <>
     //   <Jumbotron fluid className="text-light bg-dark">
