@@ -43,14 +43,14 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         {/* <RecipeProvider> */}
-          <Header />
-          <Switch>
-            <Route exact path="/" component={SearchFood} />
-            <Route exact path="/saved" component={SavedFood} />
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/login" component={Login} />
-            <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
-          </Switch>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={SearchFood} />
+          <Route exact path="/saved" component={SavedFood} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/login" component={Login} />
+          <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
+        </Switch>
         {/* </RecipeProvider> */}
       </Router>
     </ApolloProvider>
