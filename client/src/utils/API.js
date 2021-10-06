@@ -33,7 +33,8 @@ export const saveFood = (foodData, token) => {
   return fetch("/api/users", {
     method: "PUT",
     headers: {
-      "Content-Type": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(foodData),
   });

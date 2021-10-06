@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+// strMealThumb
 export const GET_ME = gql`
   {
     me {
@@ -9,7 +10,7 @@ export const GET_ME = gql`
       foodCount
       savedFood {
         idMeal
-        strMealThumb
+        
         strMeal
         strIngredient1
         strIngredient2

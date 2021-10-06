@@ -38,11 +38,11 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    saveFood: async (parent, { content }, context) => {
+    saveFood: async (parent, { savedFood }, context) => {
       if (context.user) {
         const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedFood: content } },
+          { $addToSet: { savedFood: savedFood } },
           { new: true }
         );
         return user;
