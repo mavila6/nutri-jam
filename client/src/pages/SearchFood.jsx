@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Typography, Input, Grid, InputAdornment, Card } from "@material-ui/core";
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import { createTheme, ThemeProvider, responsiveFontSizes, makeStyles } from '@material-ui/core/styles';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Input,
+  Grid,
+  InputAdornment,
+  Card,
+} from "@material-ui/core";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import {
+  createTheme,
+  ThemeProvider,
+  responsiveFontSizes,
+  makeStyles,
+} from "@material-ui/core/styles";
 import {
   Jumbotron,
   Container,
@@ -26,34 +39,34 @@ import { saveFoodIds, getSavedFoodIds } from "../utils/localStorage";
 
 let theme = createTheme({
   palette: {
-      type: 'light',
-      primary: {
-          main: '#343a40',
-      },
-      secondary: {
-          main: '#D2F3D1',
-      },
-      error: {
-          main: '#B306EC',
-      },
-      success: {
-          main: '#07e210',
-      },
-      info: {
-          main: '#167cce',
-      },
-      warning: {
-          main: '#b0adb1',
-      },
+    type: "light",
+    primary: {
+      main: "#343a40",
+    },
+    secondary: {
+      main: "#D2F3D1",
+    },
+    error: {
+      main: "#B306EC",
+    },
+    success: {
+      main: "#07e210",
+    },
+    info: {
+      main: "#167cce",
+    },
+    warning: {
+      main: "#b0adb1",
+    },
   },
   breakpoints: {
-      values: {
-          xs: 320,
-          sm: 481,
-          md: 769,
-          lg: 1025,
-          xl: 1201
-      },
+    values: {
+      xs: 320,
+      sm: 481,
+      md: 769,
+      lg: 1025,
+      xl: 1201,
+    },
   },
 });
 theme = responsiveFontSizes(theme);
@@ -181,65 +194,89 @@ const SearchFood = () => {
     }
   };
 
- // const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <ThemeProvider theme={theme}>
-            <AppBar className="hero" position="relative" color="secondary">
-            <Form onSubmit={handleSubmit}>
-              <Form.Row>
-                <Col xs={12} md={8}>
-                  <Form.Control
-                  name="searchInput"
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  type="text"
-                  size="lg"
-                  placeholder="Search for a recipe"
-                />
-              </Col>
-              <Col xs={12} md={4}>
-                <Button type="submit" variant="success" size="lg">
-                  Submit Search
+      <AppBar className="hero" position="relative" color="secondary">
+        <Form onSubmit={handleSubmit}>
+          <Form.Row>
+            <Col xs={12} md={8}>
+              <Form.Control
+                name="searchInput"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                type="text"
+                size="lg"
+                placeholder="Search for a recipe"
+              />
+            </Col>
+            <Col xs={12} md={4}>
+              <Button type="submit" variant="success" size="lg">
+                Submit Search
+              </Button>
+            </Col>
+          </Form.Row>
+        </Form>
+      </AppBar>
+      <Typography variant="h2" align="center" color="error">
+        {searchedFood.length
+          ? `Viewing ${searchedFood.length} results:`
+          : "Search for a recipe to begin"}
+      </Typography>
+      <Grid container spacing={10} align="center" overflowX="scroll">
+        {searchedFood.map((food) => {
+          return (
+            <Grid item>
+              <Card
+                style={{ height: 600, width: 300 }}
+                key={food.idMeal}
+                border="solid"
+                textAlign="center"
+              >
+                <Typography variant="subtitle1">{food.strMeal}</Typography>
+                <img
+                  src={food.strMealThumb}
+                  height="200px"
+                  width="275px"
+                  alt={`The link to ${food.strMeal}`}
+                ></img>
+                <a href="">Website</a>
+                <Typography variant="subtitle2">
+                  {" "}
+                  Ingredients:{" "}
+                  {[
+                    food.strIngredient1,
+                    food.strIngredient2,
+                    food.strIngredient3,
+                  ]}
+                </Typography>
+                <Typography variant="subtitle2">
+                  {food.strInstructions}
+                </Typography>
+                <Button
+                  size="small"
+                  color="secondary"
+                  disabled={savedFoodIds?.some(
+                    (savedFoodId) => savedFoodId === food.idMeal
+                  )}
+                  className="btn-block btn-info"
+                  onClick={() => handleSaveFood(food.idMeal)}
+                >
+                  {" "}
+                  {savedFoodIds?.some(
+                    (savedFoodId) => savedFoodId === food.idMeal
+                  )
+                    ? "This recipe has already been saved!"
+                    : "Save this Recipe!"}
                 </Button>
-              </Col>
-            </Form.Row>
-          </Form>
-            </AppBar>
-            <Typography variant="h2" align="center" color="error">{searchedFood.length
-            ? `Viewing ${searchedFood.length} results:`
-            : "Search for a recipe to begin"}</Typography>
-            <Grid container spacing={10} align="center" overflowX="scroll">
-              {searchedFood.map((food) => {
-                return (
-                  <Grid item>
-                      <Card style={{ height: 600, width: 300}} key={food.idMeal} border="solid" textAlign="center">
-                          <Typography variant="subtitle1">
-                          {food.strMeal} 
-                          </Typography>
-                          <img src={food.strMealThumb} height="200px" width="275px" alt={`The link to ${food.strMeal}`}></img>
-                          <a href="">Website</a>
-                          <Typography variant="subtitle2"> Ingredients:{" "}
-                            {[
-                              food.strIngredient1,
-                              food.strIngredient2,
-                              food.strIngredient3,
-                            ]}</Typography>
-                          <Typography variant="subtitle2">{food.strInstructions}</Typography>
-                          <Button size="small" color="secondary" disabled={savedFoodIds?.some(
-                          (savedFoodId) => savedFoodId === food.idMeal)}
-                          className="btn-block btn-info"
-                          onClick={() => handleSaveFood(food.idMeal)}> {savedFoodIds?.some(
-                            (savedFoodId) => savedFoodId === food.idMeal)
-                            ? "This recipe has already been saved!"
-                            : "Save this Recipe!"}</Button>
-                      </Card>
-                  </Grid>
-                )
-              })}
+              </Card>
             </Grid>
-      </ThemeProvider>
-       // <>
+          );
+        })}
+      </Grid>
+    </ThemeProvider>
+    // <>
     //   <Jumbotron fluid className="text-light bg-dark">
     //     <Container>
     //       <h1>Search for Recipes!</h1>
@@ -267,7 +304,7 @@ const SearchFood = () => {
     //       </Form>
     //     </Container>
     //   </Jumbotron>
-          /* <Container>
+    /* <Container>
         <h2>
           {searchedFood.length
             ? `Viewing ${searchedFood.length} results:`
@@ -295,28 +332,28 @@ const SearchFood = () => {
                     ]}
                   </p>
                   {/* <p className="small">Ingredients: {[food.strIngredient1.join(' '), food.strIngredient2.join(' '), food.strIngredient3]}</p> */
-      //             <Card.Text>{food.strInstructions}</Card.Text>
-      //             {Auth.loggedIn() && (
-      //               <Button
-      //               disabled={savedFoodIds?.some(
-      //                 (savedFoodId) => savedFoodId === food.idMeal
-      //                 )}
-      //                 className="btn-block btn-info"
-      //                 onClick={() => handleSaveFood(food.idMeal)}
-      //                 >
-      //                 {savedFoodIds?.some(
-      //                   (savedFoodId) => savedFoodId === food.idMeal
-      //                   )
-      //                   ? "This recipe has already been saved!"
-      //                   : "Save this Recipe!"}
-      //               </Button>
-      //             )}
-      //           </Card.Body>
-      //         </Card>
-      //       );
-      //     })}
-      //   </CardColumns>
-      // </Container>
+    //             <Card.Text>{food.strInstructions}</Card.Text>
+    //             {Auth.loggedIn() && (
+    //               <Button
+    //               disabled={savedFoodIds?.some(
+    //                 (savedFoodId) => savedFoodId === food.idMeal
+    //                 )}
+    //                 className="btn-block btn-info"
+    //                 onClick={() => handleSaveFood(food.idMeal)}
+    //                 >
+    //                 {savedFoodIds?.some(
+    //                   (savedFoodId) => savedFoodId === food.idMeal
+    //                   )
+    //                   ? "This recipe has already been saved!"
+    //                   : "Save this Recipe!"}
+    //               </Button>
+    //             )}
+    //           </Card.Body>
+    //         </Card>
+    //       );
+    //     })}
+    //   </CardColumns>
+    // </Container>
     // </>
     //   ); Will be replaced with our Material UI code
   );
