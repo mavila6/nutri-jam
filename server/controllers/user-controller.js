@@ -66,7 +66,8 @@ module.exports = {
   async removeFood({ user, params }, res) {
     const updatedUser = await User.findOneAndUpdate(
       { _id: user._id },
-      { $pull: { savedFoods: { foodId: params.foodId } } }
+      { $pull: { savedFood: { idMeal: params.idMeal } } },
+      { new: true }
     );
     if (!updatedUser) {
       return res.status(404).json({ message: "User Missing. Try Again!" });

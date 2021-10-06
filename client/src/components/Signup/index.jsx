@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../utils/mutations";
-import Auth from "../utils/auth";
+import { ADD_USER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 const Signup = () => {
   // set initial form state
@@ -23,7 +23,7 @@ const Signup = () => {
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleFormSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // check if form has everything
@@ -54,7 +54,7 @@ const Signup = () => {
   return (
     <>
       {/* this is needed for the validation function above */}
-      <Form noValidate={validated} onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         {/* show alert if server response is bad */}
         <Alert
           dismissible
@@ -77,6 +77,21 @@ const Signup = () => {
           />
           <Form.Control.Feedback type="invalid">
             Your username is required!
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label htmlFor="email">Email Address</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter Your Email Address!"
+            name="email"
+            onChange={handleInputChange}
+            value={userData.email}
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Your email address is required!
           </Form.Control.Feedback>
         </Form.Group>
 

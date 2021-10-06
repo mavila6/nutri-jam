@@ -1,3 +1,5 @@
+// require('dotenv').config()
+// const apiKey = process.env.REACT_APP_API_KEY;
 export const getMe = (token) => {
   return fetch("/api/users/me", {
     headers: {
@@ -31,14 +33,15 @@ export const saveFood = (foodData, token) => {
   return fetch("/api/users", {
     method: "PUT",
     headers: {
-      "Content-Type": `Bearer ${token}`,
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(foodData),
   });
 };
 
-export const removeFood = (foodId, token) => {
-  return fetch(`/api/users/food/${foodId}`, {
+export const removeFood = (idMeal, token) => {
+  return fetch(`/api/users/food/${idMeal}`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${token}`,
@@ -46,8 +49,13 @@ export const removeFood = (foodId, token) => {
   });
 };
 
-// api search for recipes
-// https://www.boredapi.com/api/activity?participants=1
-export const searchFood = (query) => {
-    return fetch(`https://www.boredapi.com/api/activity?q=${query}`)
-}
+export const searchFoodApi = async (query) => {
+  let results;
+  await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
+    .then((data) => data.json())
+    .then(function (res) {
+      console.log("res", res);
+      results = res;
+    });
+  return results;
+};

@@ -16,13 +16,15 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
+      console.log(args);
       const user = await User.create(args);
+      // add try catch block and console log error
       const token = signToken(user);
       return { token, user };
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
+      console.log(email)
       if (!user) {
         throw new AuthenticationError("Incorrect Email. Try Again!");
       }
@@ -33,29 +35,30 @@ const resolvers = {
         throw new AuthenticationError("Incorrect Password. Try Again!");
       }
 
-      const token = signToken(user, password);
+      const token = signToken(user);
       return { token, user };
     },
-    saveFood: async (parent, { food }, context) => {
+    saveFood: async (parent, { savedFood }, context) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
+        const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { saveFood: food } },
+          { $addToSet: { savedFood: savedFood } },
           { new: true }
         );
-        return updatedUser;
+        return user;
       }
       throw new AuthenticationError("You Need To Login!");
     },
-    removeFood: async (parent, { foodId }, context) => {
+    removeFood: async (parent, { idMeal }, context) => {
       if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
+        const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { foods: food.foodId } },
+          { $pull: { savedFood: {idMeal: idMeal } } },
           { new: true }
         );
-        return updatedUser;
+        return user;
       }
+      throw new AuthenticationError("Login to do that!!!")
     },
   },
 };

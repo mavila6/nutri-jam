@@ -1,5 +1,17 @@
 import { gql } from "@apollo/client";
 
+export const LOGIN_USER = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+        email
+      }
+    }
+  }
+`;
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
@@ -7,18 +19,7 @@ export const ADD_USER = gql`
       user {
         _id
         username
-      }
-    }
-  }
-`;
-
-export const LOGIN_USER = gql`
-  mutation loginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
-      token
-      user {
-        _id
-        username
+        email
       }
     }
   }
@@ -29,22 +30,24 @@ export const SAVE_FOOD = gql`
     saveFood(content: $content) {
       _id
       username
-      savedFoodInput {
-        foodId
-        title
+      email
+      savedFood {
+        idMeal
+        strMeal
       }
     }
   }
 `;
 
 export const REMOVE_FOOD = gql`
-  mutation removeFood($foodId: String!) {
-    removeFood(foodId: $foodId) {
+  mutation removeFood($idMeal: String!) {
+    removeFood(idMeal: $idMeal) {
       _id
       username
-      savedFoods {
-        foodId
-        title
+      email
+      savedFood {
+        idMeal
+        strMeal
       }
     }
   }

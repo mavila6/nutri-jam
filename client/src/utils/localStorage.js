@@ -14,16 +14,19 @@ export const saveFoodIds = (foodIdArr) => {
   }
 };
 
-export const removeFoodId = (foodId) => {
+export const removeFoodId = (idMeal) => {
   const savedFoodIds = localStorage.getItem("saved_foods")
     ? JSON.parse(localStorage.getItem("saved_foods"))
     : null;
+
   if (!savedFoodIds) {
     return false;
   }
 
   const updatedSavedFoodIds = savedFoodIds?.filter(
-    (savedFoodId) => savedFoodId !== foodId
-  );
+    (savedFoodId) => savedFoodId !== idMeal);
   localStorage.setItem("saved_foods", JSON.stringify(updatedSavedFoodIds));
+
+  return true;
 };
+

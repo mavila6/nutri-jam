@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+// strMealThumb
 export const GET_ME = gql`
   {
     me {
@@ -7,12 +8,14 @@ export const GET_ME = gql`
       username
       email
       foodCount
-      savedFoods {
-        foodId
-        title
-        recipe
-        image
-        description
+      savedFood {
+        idMeal
+        
+        strMeal
+        strIngredient1
+        strIngredient2
+        strIngredients3
+        strInstructions
       }
     }
   }

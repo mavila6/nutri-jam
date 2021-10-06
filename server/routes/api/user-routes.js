@@ -17,6 +17,6 @@ router.route("/login").post(login);
 
 router.route("/me").get(authMiddleware, getSingleUser);
 
-router.route("/foods/:foodId").delete(authMiddleware, removeFood);
+router.route("/foods/:idMeal").delete(authMiddleware, removeFood);
 
 module.exports = router;

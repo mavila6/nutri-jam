@@ -1,28 +1,26 @@
 {
-  "name": "nutri-jam",
+  "name": "googlebooks-app",
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "seed": "cd server && npm run seed",
     "build": "cd client && npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mavila6/nutri-jam.git"
   },
   "keywords": [],
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.1",
     "concurrently": "^5.1.0"
   },
-  "bugs": {
-    "url": "https://github.com/mavila6/nutri-jam/issues"
-  },
-  "homepage": "https://github.com/mavila6/nutri-jam#readme"
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "google-search-results-nodejs": "^2.0.1",
+    "node-fetch": "^3.0.0",
+    "react-router-dom": "^5.3.0"
+  }
 }

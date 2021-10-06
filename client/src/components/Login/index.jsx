@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../utils/mutations";
-import Auth from "../utls/auth";
+import { LOGIN_USER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 const Login = () => {
   // set initial state
@@ -10,40 +10,60 @@ const Login = () => {
     email: "",
     password: "",
   });
-
-  const [validated] = useState(false);
+  console.log(userData)
+  // const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const [loginUser] = useMutation(LOGIN_USER);
-
+  const [login, {error, loading}] = useMutation(LOGIN_USER);
+if(error) {
+  console.log(error)
+}
+if(loading) {
+  return "loading..."
+}
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
+const handleLogin = async (event) => {
+  try {
+    const { data} = await login({
 
-  const handleFormSubmit = async (e) => {
+      variables: userData,
+    });
+    console.log(error)
+    console.log(data, "data")
+    Auth.login(data.login.token);
+  } catch (err) {
+    console.error(err);
+    setShowAlert(true);
+  }
+}
+  const handleSubmit = async (e) => {
+    console.log(e, userData)
     e.preventDefalt();
-
+    
     // check if the form has everything
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
     }
+    console.log(userData)
+    // try {
+    //   const { data} = await login({
 
-    try {
-      const { data } = await loginUser({
-        variables: userData,
-      });
-
-      Auth.login(data.login.token);
-    } catch (err) {
-      console.error(err);
-      setShowAlert(true);
-    }
+    //     variables: userData,
+    //   });
+    //   console.log(error)
+    //   console.log(data, "data")
+    //   Auth.login(data.login.token);
+    // } catch (err) {
+    //   console.error(err);
+    //   setShowAlert(true);
+    // }
 
     setUserData({
-      username: "",
       email: "",
       password: "",
     });
@@ -52,7 +72,7 @@ const Login = () => {
   return (
     <>
       {/* this is needed for the validation function above */}
-      <Form noValidate={validated} onSubmit={handleFormSubmit}>
+      <Form >
         {/* show alert if server response is bad */}
         <Alert
           dismissable
@@ -94,6 +114,7 @@ const Login = () => {
         </Form.Group>
 
         <Button
+          onClick={(event)=>handleLogin(event)}
           disabled={!(userData.email && userData.password)}
           type="submit"
           variant="success"
