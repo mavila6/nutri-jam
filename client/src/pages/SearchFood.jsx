@@ -25,57 +25,62 @@ const SearchFood = () => {
   const [searchedFood, setSearchedFood] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [savedFoodIds, setSavedFoodIds] = useState(getSavedFoodIds());
-  const [foodSaved] = useMutation(SAVE_FOOD);
+  const [saveFood] = useMutation(SAVE_FOOD);
 
   useEffect(() => {
     return () => saveFoodIds(getSavedFoodIds);
   });
 
   // const search = new SerpApi.GoogleSearch("6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83");
-// const result = search.json({
-//   q: "Coffee", 
-//   location: "United States"
-//  }, (result) => {
-//    return result;
-//  });
-//  console.log(result)
-//   fetch(
-//     "https://serpapi.com/search.json?q=coffee&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83",
-//     { mode: "no-cors" }
-//   ).then(function (response) {
-//     response.json().then(function (data) {
-//       console.log(data);
-//     });
-//   });
+  // const result = search.json({
+  //   q: "Coffee",
+  //   location: "United States"
+  //  }, (result) => {
+  //    return result;
+  //  });
+  //  console.log(result)
+  //   fetch(
+  //     "https://serpapi.com/search.json?q=coffee&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83",
+  //     { mode: "no-cors" }
+  //   ).then(function (response) {
+  //     response.json().then(function (data) {
+  //       console.log(data);
+  //     });
+  //   });
   const handleSubmit = async (e) => {
     console.log("click");
     e.preventDefault();
 
-      if(!searchInput) {
-        return false
-      }
+    if (!searchInput) {
+      return false;
+    }
 
     //     // if (!searchInput) {
     //     //   return false;
     //     // }
     try {
-            const response = await searchFoodApi(searchInput);
+      const response = await searchFoodApi(searchInput);
 
-            const {meals} = response;
-            console.log(meals)
-            const foodData = meals.map((meals) => ({
-              idMeal:meals.idMeal,
-              strMealThumb:meals.strMealThumb,
-              strMeal:meals.strMeal,
-              strIngredient1:meals.strIngredient1,
-              strIngredient2: meals.strIngredient2,
-              strIngredient3: meals.strIngredient3,
-              strInstructions: meals.strInstructions,
-              // strYoutube: meals.strYoutube
-            }))
-            // const foodData =meals.map((meals) => ({
-              
-            // }))
+      // if (!response.ok) {
+      //   throw new Error("something went wrong");
+      // }
+
+      const { meals } = await response;
+
+      console.log(meals);
+      const foodData = meals.map((meals) => ({
+        idMeal: meals.idMeal,
+        strMealThumb: meals.strMealThumb,
+        strMeal: meals.strMeal,
+        strIngredient1: meals.strIngredient1,
+        strIngredient2: meals.strIngredient2,
+        strIngredient3: meals.strIngredient3,
+        strInstructions: meals.strInstructions,
+        // strYoutube: meals.strYoutube
+      }));
+      // const foodData =meals.map((meals) => ({
+
+      // }))
       //         // const response = await fetch ()
       //     // const response  = await fetch("https://cors-anywhere.serpapi.com/search.json?q=glutenfreebread&hl=en&gl=us&api_key=6aae3c12ac058815e5412d4c558836836b68960c22652694ca1320e7b5d10d83")
 
@@ -127,7 +132,7 @@ const SearchFood = () => {
       return false;
     }
     try {
-      await foodSaved({
+      await saveFood({
         variables: { content: foodToSave },
       });
       setSavedFoodIds([...savedFoodIds, foodToSave.idMeal]);
@@ -185,7 +190,14 @@ const SearchFood = () => {
                 ) : null}
                 <Card.Body>
                   <Card.Title>{food.strMeal}</Card.Title>
-                  <p className="small">Ingredients: {[food.strIngredient1, food.strIngredient2, food.strIngredient3]}</p>
+                  <p className="small">
+                    Ingredients:{" "}
+                    {[
+                      food.strIngredient1,
+                      food.strIngredient2,
+                      food.strIngredient3,
+                    ]}
+                  </p>
                   {/* <p className="small">Ingredients: {[food.strIngredient1.join(' '), food.strIngredient2.join(' '), food.strIngredient3]}</p> */}
                   <Card.Text>{food.strInstructions}</Card.Text>
                   {Auth.loggedIn() && (

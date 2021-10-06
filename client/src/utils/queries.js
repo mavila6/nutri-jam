@@ -15,7 +15,6 @@ export const GET_ME = gql`
         strIngredient2
         strIngredients3
         strInstructions
-        // strYoutube
       }
     }
   }

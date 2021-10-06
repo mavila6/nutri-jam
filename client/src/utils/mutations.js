@@ -7,6 +7,7 @@ export const LOGIN_USER = gql`
       user {
         _id
         username
+        email
       }
     }
   }
@@ -18,6 +19,7 @@ export const ADD_USER = gql`
       user {
         _id
         username
+        email
       }
     }
   }
@@ -28,6 +30,7 @@ export const SAVE_FOOD = gql`
     saveFood(content: $content) {
       _id
       username
+      email
       savedFood {
         idMeal
         strMeal
@@ -41,6 +44,7 @@ export const REMOVE_FOOD = gql`
     removeFood(idMeal: $idMeal) {
       _id
       username
+      email
       savedFood {
         idMeal
         strMeal
