@@ -19,6 +19,7 @@ const SavedFood = () => {
   if (loading) return "LOADING...";
   if (error) return `Error! ${error.message}`;
 
+  // fix this!!!!
   const userData = data?.me;
 
   const handleDeleteFood = async (idMeal) => {
@@ -32,7 +33,7 @@ const SavedFood = () => {
       const { data } = await removeFood({
         variables: { idMeal: idMeal },
       });
-      console.log(data)
+      console.log(data);
 
       removeFoodId(idMeal);
     } catch (err) {
@@ -69,13 +70,13 @@ const SavedFood = () => {
                 <Card.Body>
                   <Card.Title>{food.strMeal}</Card.Title>
                   <p className="small">
-                      Ingredients:{" "}
+                    Ingredients:{" "}
                     {[
                       food.strIngredient1,
                       food.strIngredient2,
                       food.strIngredient3,
                     ]}
-                    </p>
+                  </p>
                   <Card.Text>{food.strInstructions}</Card.Text>
                   <Button
                     className="btn-block btn-danger"

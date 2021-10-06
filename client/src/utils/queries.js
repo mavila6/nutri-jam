@@ -10,7 +10,6 @@ export const GET_ME = gql`
       foodCount
       savedFood {
         idMeal
-        
         strMeal
         strIngredient1
         strIngredient2
