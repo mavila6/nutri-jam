@@ -43,7 +43,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         {/* <RecipeProvider> */}
-          <Header />
+          <Header className="header"/>
           <Switch>
             <Route exact path="/" component={SearchFood} />
             <Route exact path="/saved" component={SavedFood} />
