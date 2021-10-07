@@ -20,7 +20,7 @@ A web application that allows users to search for recipes within a secure platfo
 - [Screenshots](#screenshots)
 - [Acknowledgements](#acknowledgements)
 - [Questions](#questions)
-- [Author](#author)
+- [Authors](#authors)
 
 ### Built-With
 
