@@ -38,7 +38,7 @@ Clone the repository in the CLI: `git clone https://github.com/mavila6/nutri-jam
 
 ### Usage
 
-Run `npm run develop` in the CLI to initiate server and test out the application.
+After installing the dependencies, run `npm run develop` in the CLI to initiate server and test out the application.
 
 ### Screenshots
 
