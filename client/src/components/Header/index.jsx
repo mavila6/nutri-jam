@@ -57,16 +57,16 @@ const AppNavbar = () => {
         <Toolbar fullWidth>
             <Grid container spacing={2}>
                     <img src="../favicon.ico" alt="logo" height="60" width="60" marginX="5px"></img>
-                <Grid item xl={9}>
+                <Grid item xl={10} lg={9} md={9} sm={7} xs={5}>
                     <Typography variant="h4" color="secondary" as={Link} to="/">NutriJAM</Typography>
                 </Grid>
                 {Auth.loggedIn() ? (
                 <Grid item >
-                    <Link onClick={Auth.logout} color="secondary" variant="body1" underline="hover">Logout</Link>
+                    <Link onClick={Auth.logout} color="secondary" variant="body1" underline="hover" className="login">Logout</Link>
                 </Grid>
                 ) : (
-                <Grid item >
-                    <Link onClick={() => setShowModal(true)} color="secondary" variant="body1" underline="hover">Login/Signup</Link>
+                <Grid >
+                    <Link onClick={() => setShowModal(true)} className="login" color="secondary" variant="body1" underline="hover" className="login">Login Signup</Link>
                 </Grid>
                 )}
             </Grid>

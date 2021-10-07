@@ -2,10 +2,34 @@
   padding: 2px;
   margin: 2px;
 }
+
 .modal {
   z-index: 10001;
-  margin-top: 285px;
+  margin-top: 135px;
 } 
+
+.hero {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  font-weight: bolder;
+}
+
+.layout {
+  display: flex;
+  justify-content: center;
+}
+
+.cards {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.ingredients {
+  font-weight: bold;
+}
 
 /* .header {
   z-index: 1;
