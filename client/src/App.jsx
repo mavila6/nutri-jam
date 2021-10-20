@@ -16,6 +16,8 @@ import Header from "./components/Header";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 
+// import Dropdown from "./components/Dropdown"
+
 require("dotenv").config();
 
 const httpLink = createHttpLink({
@@ -44,6 +46,7 @@ function App() {
       <Router>
         {/* <RecipeProvider> */}
           <Header className="header"/>
+          {/* <Dropdown/> */}
           <Switch>
             <Route exact path="/" component={SearchFood} />
             <Route exact path="/saved" component={SavedFood} />

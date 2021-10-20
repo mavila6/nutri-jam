@@ -50,23 +50,24 @@ const AppNavbar = () => {
   // set modal to display state(initial state is false)
   const [showModal, setShowModal] = useState(false);
    // const classes = useStyles();
+  //  const [hamburgerOpen, setHamburgerOpen] = useState(false);
   // jsx
   return (
     <ThemeProvider theme={theme}>
     <AppBar position="relative">
-        <Toolbar fullWidth>
+        <Toolbar fullwidth="true">
             <Grid container spacing={2}>
-                    <img src="../favicon.ico" alt="logo" height="60" width="60" marginX="5px"></img>
+                    <img src="../favicon.ico" alt="logo" height="60" width="60" marginx="5px"></img>
                 <Grid item xl={9}>
-                    <Typography variant="h4" color="secondary" as={Link} to="/">NutriJAM</Typography>
+                    <Typography variant="h4" color="secondary" style={{cursor:"pointer"}} as={Link} to="/" >NutriJAM</Typography>
                 </Grid>
                 {Auth.loggedIn() ? (
                 <Grid item >
-                    <Link onClick={Auth.logout} color="secondary" variant="body1" underline="hover">Logout</Link>
+                    <Link onClick={Auth.logout} color="secondary" variant="body1" style={{cursor:"pointer"}} underline="hover">Logout</Link>
                 </Grid>
                 ) : (
                 <Grid item >
-                    <Link onClick={() => setShowModal(true)} color="secondary" variant="body1" underline="hover">Login/Signup</Link>
+                    <Link onClick={() => setShowModal(true)} color="secondary" variant="body1" underline="hover" style={{cursor:"pointer"}}>Login/Signup</Link>
                 </Grid>
                 )}
             </Grid>

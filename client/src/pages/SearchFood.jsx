@@ -186,6 +186,7 @@ const SearchFood = () => {
   return (
     <ThemeProvider theme={theme}>
             <AppBar className="hero" position="relative" color="secondary">
+              
             <Form onSubmit={handleSubmit}>
               <Form.Row>
                 <Col xs={12} md={8}>
@@ -209,11 +210,11 @@ const SearchFood = () => {
             <Typography variant="h2" align="center" color="error">{searchedFood.length
             ? `Viewing ${searchedFood.length} results:`
             : "Search for a recipe to begin"}</Typography>
-            <Grid container spacing={10} align="center" overflowX="scroll">
-              {searchedFood.map((food) => {
+            <Grid container spacing={10} align="center" overflowx="scroll">
+              {searchedFood.map((food, index) => {
                 return (
-                  <Grid item>
-                      <Card style={{ height: 600, width: 300}} key={food.idMeal} border="solid" textAlign="center">
+                  <Grid key={index}item>
+                      <Card style={{ height: 600, width: 300}} key={food.idMeal} border="solid" textalign="center">
                           <Typography variant="subtitle1">
                           {food.strMeal} 
                           </Typography>
