@@ -206,19 +206,19 @@ const SearchFood = () => {
             </Form.Row>
           </Form>
             </AppBar>
-            <Typography variant="h5" align="center" color="success">{searchedFood.length
+            <Typography variant="h5" align="center" style={{color:"success"}}>{searchedFood.length
             ? `Viewing ${searchedFood.length} results:`
             : "Search for a recipe to begin"}</Typography>
             <Grid container spacing={10} className="layout">
-              {searchedFood.map((food) => {
+              {searchedFood.map((food, index) => {
                 return (
-                  <Grid item>
+                  <Grid key={index} item>
                       <Card style={{ height: 460, width: 300}} key={food.idMeal} className="cards">
                           <Typography variant="h6" className="title">
                           {food.strMeal} 
                           </Typography>
                           <img src={food.strMealThumb} height="200px" width="275px" alt={`The link to ${food.strMeal}`}></img>
-                          <Typography variant="h7" className="ingredients"> Ingredients:{" " + food.strIngredient1 + ", " + food.strIngredient2 + ", " + food.strIngredient3 }
+                          <Typography variant="h6" className="ingredients"> Ingredients:{" " + food.strIngredient1 + ", " + food.strIngredient2 + ", " + food.strIngredient3 }
                           </Typography>
                           <Typography variant="subtitle2">{food.strInstructions}</Typography>
                       </Card>

@@ -75,10 +75,10 @@ const AppNavbar = () => {
               alt="logo"
               height="60"
               width="60"
-              marginX="5px"
+              marginx="5px"
             ></img>
             <Grid item xl={10} lg={9} md={9} sm={7} xs={5}>
-              <Typography variant="h4" color="secondary" as={Link} to="/">
+              <Typography variant="h4" color="secondary" style={{cursor:"pointer"}} as={Link} to="/">
                 NutriJAM
               </Typography>
             </Grid>
@@ -90,6 +90,7 @@ const AppNavbar = () => {
                   variant="body1"
                   underline="hover"
                   className="login"
+                  style={{cursor:"pointer"}}
                 >
                   Logout
                 </Link>
@@ -103,6 +104,7 @@ const AppNavbar = () => {
                   variant="body1"
                   underline="hover"
                   className="login"
+                  style={{cursor:"pointer"}}
                 >
                   Login Signup
                 </Link>
