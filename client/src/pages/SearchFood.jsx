@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Typography, Input, Grid, InputAdornment, Card } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, Input, Grid, InputAdornment } from "@material-ui/core";
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { createTheme, ThemeProvider, responsiveFontSizes, makeStyles } from '@material-ui/core/styles';
 import {
@@ -8,7 +8,7 @@ import {
   Col,
   Form,
   Button,
-  CardColumns,
+  Card,
 } from "react-bootstrap";
 
 // import REACT_APP_API_KEY from ""
@@ -186,10 +186,9 @@ const SearchFood = () => {
   return (
     <ThemeProvider theme={theme}>
             <AppBar className="hero" position="relative" color="secondary">
-              
-            <Form onSubmit={handleSubmit}>
-              <Form.Row>
-                <Col xs={12} md={8}>
+            <Form onSubmit={handleSubmit} align="center">
+              <Form.Row className="hero">
+                <Col lg={5}>
                   <Form.Control
                   name="searchInput"
                   value={searchInput}
@@ -199,7 +198,7 @@ const SearchFood = () => {
                   placeholder="Search for a recipe"
                 />
               </Col>
-              <Col xs={12} md={4}>
+              <Col lg={1.5}>
                 <Button type="submit" variant="success" size="lg">
                   Submit Search
                 </Button>
@@ -207,33 +206,21 @@ const SearchFood = () => {
             </Form.Row>
           </Form>
             </AppBar>
-            <Typography variant="h2" align="center" color="error">{searchedFood.length
+            <Typography variant="h5" align="center" color="success">{searchedFood.length
             ? `Viewing ${searchedFood.length} results:`
             : "Search for a recipe to begin"}</Typography>
-            <Grid container spacing={10} align="center" overflowx="scroll">
-              {searchedFood.map((food, index) => {
+            <Grid container spacing={10} className="layout">
+              {searchedFood.map((food) => {
                 return (
-                  <Grid key={index}item>
-                      <Card style={{ height: 600, width: 300}} key={food.idMeal} border="solid" textalign="center">
-                          <Typography variant="subtitle1">
+                  <Grid item>
+                      <Card style={{ height: 460, width: 300}} key={food.idMeal} className="cards">
+                          <Typography variant="h6" className="title">
                           {food.strMeal} 
                           </Typography>
                           <img src={food.strMealThumb} height="200px" width="275px" alt={`The link to ${food.strMeal}`}></img>
-                          <a href="">Website</a>
-                          <Typography variant="subtitle2"> Ingredients:{" "}
-                            {[
-                              food.strIngredient1,
-                              food.strIngredient2,
-                              food.strIngredient3,
-                            ]}</Typography>
+                          <Typography variant="h7" className="ingredients"> Ingredients:{" " + food.strIngredient1 + ", " + food.strIngredient2 + ", " + food.strIngredient3 }
+                          </Typography>
                           <Typography variant="subtitle2">{food.strInstructions}</Typography>
-                          <Button size="small" color="secondary" disabled={savedFoodIds?.some(
-                          (savedFoodId) => savedFoodId === food.idMeal)}
-                          className="btn-block btn-info"
-                          onClick={() => handleSaveFood(food.idMeal)}> {savedFoodIds?.some(
-                            (savedFoodId) => savedFoodId === food.idMeal)
-                            ? "This recipe has already been saved!"
-                            : "Save this Recipe!"}</Button>
                       </Card>
                   </Grid>
                 )
@@ -241,7 +228,14 @@ const SearchFood = () => {
             </Grid>
       </ThemeProvider>
        // <>
-    //   <Jumbotron fluid className="text-light bg-dark">
+        /* <Button size="small" color="secondary" disabled={savedFoodIds?.some(
+        (savedFoodId) => savedFoodId === food.idMeal)}
+        className="btn-block btn-info"
+        onClick={() => handleSaveFood(food.idMeal)}> {savedFoodIds?.some(
+          (savedFoodId) => savedFoodId === food.idMeal)
+          ? "This recipe has already been saved!"
+         : "Save this Recipe!"}</Button> */
+       //   <Jumbotron fluid className="text-light bg-dark">
     //     <Container>
     //       <h1>Search for Recipes!</h1>
     //       <Form onSubmit={handleSubmit}>
