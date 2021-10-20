@@ -75,7 +75,7 @@ const handleLogin = async (event) => {
       <Form >
         {/* show alert if server response is bad */}
         <Alert
-          dismissable
+          dismissable="true"
           onClose={() => setShowAlert(false)}
           show={showAlert}
           variant="danger"

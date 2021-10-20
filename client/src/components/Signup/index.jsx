@@ -57,7 +57,7 @@ const Signup = () => {
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         {/* show alert if server response is bad */}
         <Alert
-          dismissible
+          dismissible="true"
           onClose={() => setShowAlert(false)}
           show={showAlert}
           variant="danger"
